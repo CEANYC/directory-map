@@ -1,4 +1,5 @@
 name: gh-pages
+permissions: write-all
 
 on:
   push:
@@ -6,7 +7,7 @@ on:
       - main
 
 jobs:
-  cd:
+  gh-pages:
     runs-on: ${{ matrix.os }}
 
     strategy:
