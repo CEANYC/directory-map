@@ -42,11 +42,6 @@ const throttledUpdateQuery = throttle(
 const syncQueryParams = store => {
   store.subscribe((mutation, state) => {
     if (!(mutation.payload && mutation.payload.pushToURL)) return;
-
-    // We use the root getter queryParams to get the current state of the store
-    // that needs to be added to the query string. We do this because previously
-    // there were race conditions where a subsequent change to the query string
-    // would override a previous one and the string would be outdated.
     throttledUpdateQuery($nuxt.$router, store.getters['queryParams'], mutation);
   });
 };
