@@ -19,7 +19,7 @@
     "mapbox-gl": "1.7.0",
     "nuxt": "^2.15.8",
     "v-mapbox": "1.7.0",
-    "vue": "^2.6.14",
+    "vue": "^3.2.34",
     "vue-server-renderer": "^2.6.14",
     "vue-template-compiler": "^2.6.14",
     "webpack": "^4.46.0"
