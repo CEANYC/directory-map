@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@nuxtjs/pwa": "^3.3.5",
-    "core-js": "^3.22.5",
+    "core-js": "^3.23.1",
     "lodash.throttle": "^4.1.1",
     "mapbox-gl": "1.7.0",
     "nuxt": "^2.15.8",
