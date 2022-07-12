@@ -17,7 +17,7 @@
     "airtable": "^0.11.4",
     "core-js": "^3.23.4",
     "lodash.throttle": "^4.1.1",
-    "mapbox-gl": "1.7.0",
+    "mapbox-gl": "2.9.1",
     "nuxt": "^2.15.8",
     "v-mapbox": "1.7.0",
     "vue": "^2.6.14",
