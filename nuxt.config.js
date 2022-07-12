@@ -47,4 +47,9 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+
+
+  env: {
+    AIRTABLE_API_KEY: process.env.AIRTABLE_API_KEY,
+  },
 }

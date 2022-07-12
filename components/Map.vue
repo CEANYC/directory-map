@@ -11,6 +11,11 @@
       :maxBounds="maximumExtent"
       :zoom="zoom"
     >
+      <MglGeojsonLayer
+        sourceId="locations"
+        :source="locationsSource"
+        :layer="locationsLayer"
+      />
     </MglMap>
   </client-only>
 </template>
@@ -34,6 +39,45 @@ export default {
       style: MAPBOX_STYLE,
       zoom: INITIAL_ZOOM,
     };
+  },
+
+  computed: {
+    locations() {
+      return this.$store.state.data.locations;
+    },
+
+    locationsLayer() {
+      return {
+        id: 'locations',
+        type: 'circle',
+        paint: {
+          'circle-radius': 3
+        }
+      };
+    },
+
+    locationsSource() {
+      return {
+        data: this.locationsGeoJson,
+      };
+    },
+
+    locationsGeoJson() {
+      return {
+        type: "FeatureCollection",
+        features: this.locations.map(location => ({
+          type: "Feature",
+          properties: { ...location },
+          geometry: {
+            type: "Point",
+            coordinates: [
+              location.lon,
+              location.lat
+            ]
+          }
+        }))
+      };
+    }
   },
 
   methods: {

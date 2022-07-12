@@ -7,6 +7,10 @@
 <script>
 export default {
   name: 'IndexPage',
+
+  mounted() {
+    this.$store.dispatch('data/loadLocations');
+  }
 }
 </script>
 
