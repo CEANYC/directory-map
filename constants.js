@@ -1,4 +1,3 @@
-console.log(process.env.AIRTABLE_API_KEY);
 export const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY;
 export const AIRTABLE_DATABASE_ID = 'appa4RhGGhuRhZfBL';
 export const AIRTABLE_TABLE = 'Directory Listings';
