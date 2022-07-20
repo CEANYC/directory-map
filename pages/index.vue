@@ -1,6 +1,7 @@
 <template>
   <main>
     <Map />
+    <Sidebar />
   </main>
 </template>
 
@@ -8,8 +9,11 @@
 export default {
   name: 'IndexPage',
 
-  mounted() {
-    this.$store.dispatch('data/loadLocations');
+  async mounted() {
+    await this.$store.dispatch('data/loadLocations');
+    this.$store.dispatch('filters/setSectors', {
+      sectors: this.$store.getters['data/sectors'],
+    });
   }
 }
 </script>

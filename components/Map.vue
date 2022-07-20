@@ -2,6 +2,7 @@
   <client-only>
     <MglMap
       class="map"
+      @click="handleClick"
       @load="mapLoaded"
       @move="handleMove"
       @moveend="handleMoveEnd"
@@ -52,7 +53,7 @@ export default {
         type: 'circle',
         paint: {
           'circle-radius': 3
-        }
+        },
       };
     },
 
@@ -77,6 +78,10 @@ export default {
           }
         }))
       };
+    },
+
+    selectedSectors() {
+      return this.$store.state.filters.sectors;
     }
   },
 
@@ -87,6 +92,13 @@ export default {
         center: this.center,
         zoom: this.zoom
       });
+    },
+
+    handleClick(e) {
+      const selectedFeatures = this.map.queryRenderedFeatures(
+        e.mapboxEvent.point, { layers: [this.locationsLayer.id] }
+      );
+      this.$store.dispatch("popup/setSelectedFeatures", { selectedFeatures });
     },
 
     handleMove() {
@@ -100,6 +112,22 @@ export default {
     handleMoveEnd() {
       this.flyToInProgress = false;
     },
+  },
+
+  watch: {
+    selectedSectors() {
+      // Since the Sector property is an array, loop over selected sectors to
+      // make a series of conditions
+      this.map.setFilter(this.locationsLayer.id, ["any",
+        ...this.selectedSectors.map(sector => (
+          [
+            "in",
+            sector,
+            ["get", "Sector"]
+          ]
+        ))
+      ]);
+    }
   }
 }
 </script>

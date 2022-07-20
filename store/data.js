@@ -18,3 +18,12 @@ export const actions = {
     commit("setLocations", { locations });
   },
 };
+
+export const getters = {
+  sectors: state => {
+    const sectorsFlattened = state.locations
+      .map(({ Sector }) => Sector)
+      .flat(Infinity);
+    return Array.from(new Set(sectorsFlattened));
+  }
+};
