@@ -16,6 +16,7 @@
         sourceId="locations"
         :source="locationsSource"
         :layer="locationsLayer"
+        :layerId="locationsLayer.id"
       />
     </MglMap>
   </client-only>
@@ -43,10 +44,6 @@ export default {
   },
 
   computed: {
-    locations() {
-      return this.$store.state.data.locations;
-    },
-
     locationsLayer() {
       return {
         id: 'locations',
@@ -64,25 +61,20 @@ export default {
     },
 
     locationsGeoJson() {
-      return {
-        type: "FeatureCollection",
-        features: this.locations.map(location => ({
-          type: "Feature",
-          properties: { ...location },
-          geometry: {
-            type: "Point",
-            coordinates: [
-              location.lon,
-              location.lat
-            ]
-          }
-        }))
-      };
+      return this.$store.getters['data/locationsGeoJson'];
     },
 
     selectedSectors() {
       return this.$store.state.filters.sectors;
-    }
+    },
+
+    storeCenter() {
+      return this.$store.state.map.center;
+    },
+
+    storeZoom() {
+      return this.$store.state.map.zoom;
+    },
   },
 
   methods: {
@@ -112,6 +104,15 @@ export default {
     handleMoveEnd() {
       this.flyToInProgress = false;
     },
+
+    moveToStorePosition() {
+      if (this.flyToInProgress) return;
+      this.flyToInProgress = true;
+      this.map.flyTo({
+        center: this.storeCenter,
+        zoom: this.storeZoom,
+      });
+    }
   },
 
   watch: {
@@ -127,7 +128,15 @@ export default {
           ]
         ))
       ]);
-    }
+    },
+
+    storeCenter() {
+      this.moveToStorePosition();
+    },
+
+    storeZoom() {
+      this.moveToStorePosition();
+    },
   }
 }
 </script>

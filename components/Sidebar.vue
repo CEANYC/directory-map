@@ -2,7 +2,10 @@
   <div class="sidebar">
     <SidebarSection>
       <h1>SE NYC Directory</h1>
-      <SectorPicker /> 
+      <div class="top-section-content">
+        <SectorPicker /> 
+        <Search />
+      </div>
     </SidebarSection>
 
     <SidebarSection v-if="selectedFeatures.length" class="popup-wrapper">
@@ -34,6 +37,16 @@ export default {
     font-family: sans-serif;
     margin: 0;
     margin-bottom: 1em;
+  }
+
+  .top-section-content {
+    > * {
+      margin-bottom: 1em;
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+    }
   }
 
   .popup-wrapper {

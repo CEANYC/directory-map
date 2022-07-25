@@ -1,4 +1,5 @@
-import { getLocations } from "../connectors/airtable";
+import { getLocations } from "@/connectors/airtable";
+import { toGeoJson } from "@/transformers/locations";
 
 export const state = () => {
   return {
@@ -20,6 +21,8 @@ export const actions = {
 };
 
 export const getters = {
+  locationsGeoJson: state => toGeoJson(state.locations),
+
   sectors: state => {
     const sectorsFlattened = state.locations
       .map(({ Sector }) => Sector)
