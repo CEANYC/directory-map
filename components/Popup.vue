@@ -36,7 +36,7 @@ export default {
   .close {
     cursor: pointer;
     float: right;
-    font-size: 2em;
+    font-size: 2rem;
     margin-top: -0.5em;
   }
 }
