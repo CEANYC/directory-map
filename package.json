@@ -19,7 +19,7 @@
     "lodash.throttle": "^4.1.1",
     "mapbox-gl": "1.7.0",
     "nuxt": "^2.15.8",
-    "sass": "^1.53.0",
+    "sass": "^1.54.0",
     "sass-loader": "10.1.1",
     "v-mapbox": "1.7.0",
     "vue": "^2.6.14",
