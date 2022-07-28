@@ -12,10 +12,17 @@ export default {
   name: 'IndexPage',
 
   async mounted() {
+    const params = this.$route.query;
+
     await this.$store.dispatch('data/loadLocations');
-    this.$store.dispatch('filters/setSectors', {
-      sectors: this.$store.getters['data/sectors'],
-    });
+    this.$store.dispatch('map/loadQueryParams', { params });
+    this.$store.dispatch('filters/loadQueryParams', { params });
+
+    if (!this.$store.state.filters.sectors.length) {
+      this.$store.dispatch('filters/setSectors', {
+        sectors: this.$store.getters['data/sectors'],
+      });
+    }
   },
 
   computed: {

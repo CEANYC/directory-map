@@ -36,9 +36,10 @@ export default {
     return {
       accessToken: MAPBOX_ACCESS_TOKEN,
       flyToInProgress: false,
-      center: INITIAL_CENTER,
       maximumExtent: MAXIMUM_EXTENT,
       style: MAPBOX_STYLE,
+
+      center: INITIAL_CENTER,
       zoom: INITIAL_ZOOM,
     };
   },
@@ -95,10 +96,9 @@ export default {
 
     handleMove() {
       if (this.flyToInProgress) return;
-      this.$store.dispatch("map/setPosition", {
-        center: this.map.getCenter(),
-        zoom: this.map.getZoom(),
-      });
+      const center = this.map.getCenter();
+      const zoom = this.map.getZoom();
+      this.$store.dispatch("map/setPosition", { center, zoom });
     },
 
     handleMoveEnd() {
@@ -106,7 +106,12 @@ export default {
     },
 
     moveToStorePosition() {
-      if (this.flyToInProgress) return;
+      if (!this.map || this.flyToInProgress) return;
+      if (
+        this.map.getCenter().lat === this.storeCenter.lat &&
+        this.map.getCenter().lng === this.storeCenter.lng &&
+        this.map.getZoom() === this.storeZoom
+      ) return;
       this.flyToInProgress = true;
       this.map.flyTo({
         center: this.storeCenter,

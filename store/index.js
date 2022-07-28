@@ -6,7 +6,7 @@ export const getters = {
   queryParams: (state, getters) => {
     return {
       ...getters['map/queryParams'],
-      ...getters['map/filters'],
+      ...getters['filters/queryParams'],
     };
   }
 };
