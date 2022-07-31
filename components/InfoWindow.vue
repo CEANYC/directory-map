@@ -3,6 +3,11 @@
     <div class="close" @click="close">⨉</div>
     <div class="content">
       <h2>Information</h2>
+      <SectorSection
+        v-for="sector in sectors"
+        :key="sector.Name"
+        :sector="sector"
+      />
     </div>
   </div>
 </template>
@@ -16,6 +21,9 @@ export default {
   },
 
   computed: {
+    sectors() {
+      return this.$store.state.content.sectors;
+    }
   },
 }
 </script>
