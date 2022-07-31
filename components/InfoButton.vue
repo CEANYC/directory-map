@@ -26,6 +26,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../styles/variables.scss";
+
 .info-button {
   background: white;
   cursor: pointer;
@@ -38,5 +40,10 @@ export default {
   top: 1rem;
   right: 1rem;
   border-radius: 10px;
+
+  @media (max-width: $mobile-maximum) {
+    top: unset;
+    bottom: 1rem;
+  }
 }
 </style>

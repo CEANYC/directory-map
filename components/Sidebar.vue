@@ -24,7 +24,9 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+@import "../styles/variables.scss";
+
 .sidebar {
   border-radius: 20px;
   position: absolute;
@@ -33,10 +35,21 @@ export default {
   z-index: 1000;
   width: 25%;
 
+  @media (max-width: $mobile-maximum) {
+    left: 0.5rem;
+    right: 0.5rem;
+    top: 0.5rem;
+    width: unset;
+  }
+
   h1 {
     font-family: sans-serif;
     margin: 0;
     margin-bottom: 1em;
+
+    @media (max-width: $mobile-maximum) {
+      margin-bottom: 0;
+    }
   }
 
   .top-section-content {
@@ -51,6 +64,16 @@ export default {
 
   .popup-wrapper {
     margin-top: 0.5em;
+  }
+}
+</style>
+
+<style lang="scss">
+@import "../styles/variables.scss";
+
+@media (max-width: $mobile-maximum) {
+  .sidebar .sector-picker {
+    display: none;
   }
 }
 </style>

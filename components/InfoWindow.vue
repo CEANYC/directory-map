@@ -29,6 +29,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../styles/variables.scss";
+
 .info-window {
   background: white;
   width: 50%;
@@ -38,6 +40,14 @@ export default {
   right: 1rem;
   bottom: 1rem;
   border-radius: 10px;
+
+  @media (max-width: $mobile-maximum) {
+    top: 0.5rem;
+    right: 0.5rem;
+    bottom: 0.5rem;
+    left: 0.5rem;
+    width: unset;
+  }
 }
 
 .content {
