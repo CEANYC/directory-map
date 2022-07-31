@@ -2,7 +2,7 @@ import Airtable from "airtable";
 import {
   AIRTABLE_API_KEY,
   AIRTABLE_DATABASE_ID,
-  AIRTABLE_TABLE
+  AIRTABLE_LISTINGS_TABLE
 } from "@/constants";
 
 export const getLocations = async () => {
@@ -11,7 +11,7 @@ export const getLocations = async () => {
   return new Promise((resolve, reject) => {
     let allRecords = [];
 
-    base(AIRTABLE_TABLE).select({ maxRecords: 2500 })
+    base(AIRTABLE_LISTINGS_TABLE).select({ maxRecords: 2500 })
       .eachPage(
         (records, fetchNextPage) => {
           allRecords = [
