@@ -4,6 +4,7 @@
     <Sidebar />
     <InfoButton />
     <InfoWindow v-if="infoVisible" />
+    <ImageModal v-if="imageModalOpen" />
   </main>
 </template>
 
@@ -28,6 +29,10 @@ export default {
   },
 
   computed: {
+    imageModalOpen() {
+      return this.$store.state.imageModal.open;
+    },
+
     infoVisible() {
       return this.$store.state.info.visible;
     },

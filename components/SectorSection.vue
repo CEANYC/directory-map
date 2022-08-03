@@ -3,7 +3,7 @@
     <h3 :class="{ name: true, expanded }" @click="toggle">{{name}}</h3>
     <div class="content" v-if="expanded">
       <div v-html="detailsHtml" />
-      <img v-if="imgUrl" :src="imgUrl" />
+      <img v-if="imageUrl" :src="imageUrl" @click="handleSelectImage" />
     </div>
   </section>
 </template>
@@ -23,6 +23,10 @@ export default {
   },
 
   methods: {
+    handleSelectImage() {
+      this.$store.dispatch("imageModal/open", { imageUrl: this.imageUrl });
+    },
+
     toggle() {
       this.expanded = !this.expanded;
     },
@@ -45,7 +49,7 @@ export default {
       return this.markdownConverter.makeHtml(this.details);
     },
 
-    imgUrl() {
+    imageUrl() {
       return this.sector.Attachments?.[0]?.url ?? null;
     },
   },
@@ -80,6 +84,7 @@ export default {
 }
 
 img {
+  cursor: pointer;
   max-width: 100%;
 }
 

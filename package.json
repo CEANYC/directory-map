@@ -22,6 +22,7 @@
     "sass": "^1.54.0",
     "sass-loader": "10.1.1",
     "showdown": "^2.1.0",
+    "v-hotkey": "^0.9.0",
     "v-mapbox": "1.7.0",
     "vue": "^2.6.14",
     "vue-search-select": "^2.9.5",
