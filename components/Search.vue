@@ -28,11 +28,16 @@ export default {
   computed: {
     locations() {
       return [...this.$store.state.data.locations]
+        .filter(({ Sector }) => this.selectedSectors.includes(Sector))
         .sort((a, b) => a?.["Display Name"]?.localeCompare(b?.["Display Name"]));
     },
 
     selectedLocation() {
       return this.locations.filter(({ ID }) => ID === this.selected)[0];
+    },
+
+    selectedSectors() {
+      return this.$store.state.filters.sectors;
     },
   },
 
@@ -43,7 +48,6 @@ export default {
       });
 
       const { lat, lon } = this.selectedLocation;
-      console.log(lat, lon);
       this.$store.dispatch('map/setPosition', {
         center: { lng: lon, lat },
         zoom: 15
