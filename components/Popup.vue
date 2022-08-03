@@ -3,6 +3,7 @@
     <div class="close" @click="handleClose">⨉</div>
     <h2>{{properties['Display Name']}}</h2>
     <div>Address: {{properties['Address']}}</div>
+    <div>{{properties['Brief Description']}}</div>
   </div>
 </template>
 
