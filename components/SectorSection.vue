@@ -2,13 +2,15 @@
   <section class="sector">
     <h3 :class="{ name: true, expanded }" @click="toggle">{{name}}</h3>
     <div class="content" v-if="expanded">
-      <div>{{details}}</div>
+      <div v-html="detailsHtml" />
       <img v-if="imgUrl" :src="imgUrl" />
     </div>
   </section>
 </template>
 
 <script>
+import showdown from 'showdown';
+
 export default {
   data() {
     return {
@@ -27,12 +29,20 @@ export default {
   },
 
   computed: {
+    markdownConverter() {
+      return new showdown.Converter();
+    },
+
     name() {
       return this.sector.Name;
     },
 
     details() {
       return this.sector.Notes;
+    },
+
+    detailsHtml() {
+      return this.markdownConverter.makeHtml(this.details);
     },
 
     imgUrl() {
