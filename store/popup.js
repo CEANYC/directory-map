@@ -6,14 +6,14 @@ export const state = () => {
 
 export const mutations = {
   setSelectedFeatures(state, { selectedFeatures }) {
-    state.selectedFeatures = selectedFeatures;
+    state.selectedFeatures = [ ...selectedFeatures ];
   },
 };
 
 export const actions = {
   setSelectedFeatures({ commit, state }, { selectedFeatures }) {
     commit("setSelectedFeatures", {
-      selectedFeatures,
+      selectedFeatures: JSON.parse(JSON.stringify(selectedFeatures)),
       pushToURL: { selectedFeatures },
     });
   },

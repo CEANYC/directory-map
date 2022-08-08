@@ -38,6 +38,8 @@ export const state = () => {
 
     center: { ...INITIAL_CENTER },
     zoom: INITIAL_ZOOM,
+    
+    hoveredFeature: {},
   };
 };
 
@@ -57,6 +59,10 @@ export const mutations = {
 
   setZoom(state, { zoom }) {
     state.zoom = zoom;
+  },
+
+  setHoveredFeature(state, feature) {
+    state.hoveredFeature = { ...feature };
   },
 
   setInitialZoom(state, { zoom }) {
@@ -87,6 +93,10 @@ export const actions = {
     });
   },
 
+  setHoveredFeature({ commit }, feature) {
+    commit("setHoveredFeature", JSON.parse(JSON.stringify(feature)));
+  },
+
   loadQueryParams({ commit, dispatch }, { params }) {
     let center = INITIAL_CENTER;
     let zoom = INITIAL_ZOOM;
@@ -115,5 +125,13 @@ export const getters = {
     };
 
     return params;
-  }
+  },
+
+  highlightedFeatures: (state, getters, rootState) => {
+    return [
+      state.hoveredFeature,
+      rootState.popup.selectedFeatures
+        .map((f) => ({ layer: f.layer.id, id: f.id }))[0],
+    ].filter(v => !!v && Object.keys(v).length > 0);
+  },
 }

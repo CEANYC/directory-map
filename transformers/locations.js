@@ -1,3 +1,14 @@
+export const getSectorSlug = sector => {
+  return sector.toLowerCase().replaceAll(' ', '_');
+};
+
+export const fromAirtable = location => {
+  return {
+    ...location,
+    sectorSlug: getSectorSlug(location.Sector),
+  };
+};
+
 export const toGeoJson = locations => {
   return {
     type: "FeatureCollection",
@@ -8,6 +19,7 @@ export const toGeoJson = locations => {
 export const toGeoJsonFeature = location => {
   return {
     type: "Feature",
+    id: location.ID,
     properties: { ...location },
     geometry: {
       type: "Point",
