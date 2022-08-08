@@ -66,3 +66,12 @@ More information about the usage of this directory in [the documentation](https:
 This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
 
 More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
+
+## Map markers
+
+We generate map markers using figmasset, like this:
+
+```bash
+cd static/map-assets/
+npx figmasset-export --file <file-id> --token <token> --frame markers
+```

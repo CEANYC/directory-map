@@ -1,5 +1,5 @@
 import { getLocations } from "@/connectors/airtable";
-import { toGeoJson } from "@/transformers/locations";
+import { fromAirtable, toGeoJson } from "@/transformers/locations";
 
 export const state = () => {
   return {
@@ -15,7 +15,7 @@ export const mutations = {
 
 export const actions = {
   async loadLocations({ commit }) {
-    const locations = await getLocations();
+    const locations = (await getLocations()).map(fromAirtable);
     commit("setLocations", { locations });
   },
 };

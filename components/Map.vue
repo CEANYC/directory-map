@@ -1,7 +1,7 @@
 <template>
   <client-only>
     <MglMap
-      class="map"
+      :class="{ map: true, hovered }"
       @click="handleClick"
       @load="mapLoaded"
       @move="handleMove"
@@ -14,6 +14,8 @@
     >
       <MglGeojsonLayer
         sourceId="locations"
+        @mouseenter="handleMouseEnter"
+        @mouseleave="handleMouseLeave"
         :source="locationsSource"
         :layer="locationsLayer"
         :layerId="locationsLayer.id"
@@ -23,6 +25,7 @@
 </template>
 
 <script>
+import { loadStoredFigmassets } from "figmasset";
 import {
   INITIAL_CENTER,
   INITIAL_ZOOM,
@@ -38,6 +41,7 @@ export default {
       flyToInProgress: false,
       maximumExtent: MAXIMUM_EXTENT,
       style: MAPBOX_STYLE,
+      hovered: false,
 
       center: INITIAL_CENTER,
       zoom: INITIAL_ZOOM,
@@ -48,9 +52,15 @@ export default {
     locationsLayer() {
       return {
         id: 'locations',
-        type: 'circle',
-        paint: {
-          'circle-radius': 3
+        type: 'symbol',
+        layout: {
+          'icon-allow-overlap': true,
+          'icon-image': ['concat', 'marker_', ['get', 'sectorSlug']],
+          'icon-size': [
+            'interpolate', ['linear'], ['zoom'],
+            12, 0.5,
+            16, 1.5,
+          ]
         },
       };
     },
@@ -63,6 +73,10 @@ export default {
 
     locationsGeoJson() {
       return this.$store.getters['data/locationsGeoJson'];
+    },
+
+    highlightedFeatures() {
+      return this.$store.getters['map/highlightedFeatures'];
     },
 
     selectedSectors() {
@@ -85,6 +99,8 @@ export default {
         center: this.center,
         zoom: this.zoom
       });
+
+      loadStoredFigmassets({ map, path: "map-assets/assets@2x" });
     },
 
     handleClick(e) {
@@ -92,6 +108,24 @@ export default {
         e.mapboxEvent.point, { layers: [this.locationsLayer.id] }
       );
       this.$store.dispatch("popup/setSelectedFeatures", { selectedFeatures });
+    },
+
+    handleMouseEnter(e) {
+      const feature = e.mapboxEvent.features[0];
+      if (feature) {
+        const layer = feature.layer.id;
+        const id = feature.id;
+        this.$store.dispatch("map/setHoveredFeature", { layer, id });
+      } else {
+        this.$store.dispatch("map/setHoveredFeature", {});
+      }
+
+      this.hovered = true;
+    },
+
+    handleMouseLeave() {
+      this.$store.dispatch("map/setHoveredFeature", {});
+      this.hovered = false;
     },
 
     handleMove() {
@@ -135,6 +169,28 @@ export default {
       ]);
     },
 
+    highlightedFeatures(currentValue, previousValue) {
+      let layer = currentValue?.[0]?.layer;
+      let ids = currentValue.map(({ id }) => id);
+      let iconImageExpression;
+
+      if (layer && ids) {
+        iconImageExpression = [
+          "case",
+          ["in", ['get', 'ID'], ["literal", ids]],
+          ['concat', 'marker_', ['get', 'sectorSlug'], '_highlight'],
+          ['concat', 'marker_', ['get', 'sectorSlug']],
+        ];
+      } else {
+        ({ layer } = previousValue?.[0]);
+        iconImageExpression = ['concat', 'marker_', ['get', 'sectorSlug']];
+      }
+
+      if (layer) {
+        this.map.setLayoutProperty(layer, 'icon-image', iconImageExpression);
+      }
+    },
+
     storeCenter() {
       this.moveToStorePosition();
     },
@@ -151,5 +207,9 @@ export default {
 .mapboxgl-map {
   height: 100%;
   width: 100%;
+}
+
+.map.hovered {
+  cursor: pointer;
 }
 </style>
