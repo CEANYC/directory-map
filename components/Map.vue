@@ -173,6 +173,7 @@ export default {
       let layer = currentValue?.[0]?.layer;
       let ids = currentValue.map(({ id }) => id);
       let iconImageExpression;
+      let symbolSortKeyExpression;
 
       if (layer && ids) {
         iconImageExpression = [
@@ -181,13 +182,22 @@ export default {
           ['concat', 'marker_', ['get', 'sectorSlug'], '_highlight'],
           ['concat', 'marker_', ['get', 'sectorSlug']],
         ];
+        symbolSortKeyExpression = [
+          "case",
+          ["in", ['get', 'ID'], ["literal", ids]],
+          1,
+          0,
+        ];
       } else {
         ({ layer } = previousValue?.[0]);
         iconImageExpression = ['concat', 'marker_', ['get', 'sectorSlug']];
+        symbolSortKeyExpression = 0;
       }
 
       if (layer) {
         this.map.setLayoutProperty(layer, 'icon-image', iconImageExpression);
+        this.map.setLayoutProperty(layer, 'symbol-sort-key',
+          symbolSortKeyExpression);
       }
     },
 
