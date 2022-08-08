@@ -14,7 +14,7 @@
     >
       <MglGeojsonLayer
         sourceId="locations"
-        @mouseenter="handleMouseEnter"
+        @mousemove="handleMouseMove"
         @mouseleave="handleMouseLeave"
         :source="locationsSource"
         :layer="locationsLayer"
@@ -110,7 +110,7 @@ export default {
       this.$store.dispatch("popup/setSelectedFeatures", { selectedFeatures });
     },
 
-    handleMouseEnter(e) {
+    handleMouseMove(e) {
       const feature = e.mapboxEvent.features[0];
       if (feature) {
         const layer = feature.layer.id;
