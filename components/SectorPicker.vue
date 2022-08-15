@@ -1,17 +1,12 @@
 <template>
   <div class="sector-picker">
-    <div
+    <SectorPill
       v-for="sector in sectors"
       :key="sector"
-      :class="{
-        sector: true,
-        [slug(sector)]: true,
-        selected: isSelected(sector)
-      }"
-      @click="handleClick(sector)"
-    >
-      {{sector}}
-    </div>
+      :sector="sector"
+      :selected="isSelected(sector)"
+      @click.native="handleClick(sector)"
+    />
   </div>
 </template>
 
@@ -41,10 +36,6 @@ export default {
         ? this.handleDeselect(sector)
         : this.handleSelect(sector);
     },
-
-    slug(sector) {
-      return sector.toLowerCase().replaceAll(' ', '-');
-    },
   },
 
   computed: {
@@ -67,48 +58,8 @@ export default {
   justify-content: center;
   gap: 0.5rem;
 
-  .sector {
-    background: gray;
-    border-radius: 10px;
-    color: white;
+  .sector-pill {
     cursor: pointer;
-    font-family: sans-serif;
-    padding: 0.1rem 1rem;
-    text-transform: uppercase;
-
-    &.selected {
-      &.credit-unions {
-        background: #5BA8F7;
-      }
-
-      &.clts {
-        background: #33B983;
-      }
-
-      &.csas {
-        background: #CC34CD;
-      }
-
-      &.energy {
-        background: #1077F3;
-      }
-
-      &.food {
-        background: #7018D3;
-      }
-
-      &.gardens {
-        background: #72B622;
-      }
-
-      &.housing {
-        background: #F98517;
-      }
-
-      &.worker {
-        background: #FDCC0D;
-      }
-    }
   }
 }
 </style>
