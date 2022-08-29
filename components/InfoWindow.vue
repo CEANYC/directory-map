@@ -52,6 +52,7 @@ export default {
 
 .content {
   height: 100%;
+  overflow-y: auto;
   padding: 2em;
 }
 
