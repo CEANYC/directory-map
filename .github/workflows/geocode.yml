@@ -1,0 +1,20 @@
+name: Geocode records with missing locations
+on: workflow_dispatch
+jobs:
+  geocode:
+    name: Geocode records with missing locations
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - id: run-geocoder
+        name: Run geocoder
+        shell: bash
+        run: |
+          yarn install --network-concurrency 1
+          node ./scripts/geocode.mjs
+        env:
+          AIRTABLE_API_KEY_WRITABLE: ${{ secrets.AIRTABLE_API_KEY_WRITABLE }}
+          GEOCLIENT_API_KEY: ${{ secrets.GEOCLIENT_API_KEY }}
