@@ -14,7 +14,7 @@ export const actions = {
   setSelectedFeatures({ commit, state }, { selectedFeatures }) {
     commit("setSelectedFeatures", {
       selectedFeatures: JSON.parse(JSON.stringify(selectedFeatures)),
-      pushToURL: { selectedFeature: selectedFeatures[0].id },
+      pushToURL: { selectedFeature: selectedFeatures[0]?.id ?? null },
     });
   },
 

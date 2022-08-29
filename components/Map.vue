@@ -189,7 +189,7 @@ export default {
           0,
         ];
       } else {
-        ({ layer } = previousValue?.[0]);
+        ({ layer } = previousValue?.[0] ?? {});
         iconImageExpression = ['concat', 'marker_', ['get', 'sectorSlug']];
         symbolSortKeyExpression = 0;
       }
