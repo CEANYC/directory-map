@@ -29,6 +29,8 @@ jobs:
 
       - name: Generate
         run: yarn generate
+        env:
+          AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
