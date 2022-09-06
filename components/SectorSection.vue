@@ -57,12 +57,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "/styles/variables";
+
 .name {
   border: 1px solid black;
   border-radius: 20px;
   cursor: pointer;
   background: #eee;
-  padding: 0.5em 2em;
+  font-family: $support-font-family, sans-serif;
+  font-size: 0.75em;
+  text-transform: uppercase;
+  padding: 1.25em 4.5em;
   position: relative;
 
   &::after {

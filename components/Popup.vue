@@ -36,7 +36,6 @@ export default {
   position: relative;
 
   h2 {
-    font-family: sans-serif;
     margin-top: 0.5em;
   }
 

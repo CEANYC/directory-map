@@ -1,6 +1,6 @@
 <template>
   <div class="info-button" @click="toggle">
-    i
+    <span class="button-text">i</span>
   </div>
 </template>
 
@@ -29,9 +29,12 @@ export default {
 @import "../styles/variables.scss";
 
 .info-button {
+  align-items: center;
   background: white;
   cursor: pointer;
+  display: flex;
   font-size: 3em;
+  justify-content: center;
   width: 1.1em;
   height: 1.1em;
   text-align: center;
@@ -45,5 +48,10 @@ export default {
     top: unset;
     bottom: 1rem;
   }
+}
+
+.button-text {
+  font-size: 0.75em;
+  font-weight: bold;
 }
 </style>

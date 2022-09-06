@@ -28,13 +28,14 @@ export default {
 
 <style lang="scss">
 .sector-pill {
-  background: gray;
-  border-radius: 10px;
+  background: #bcbcbc;
+  border-radius: 1rem;
   color: white;
   cursor: default;
   display: inline;
-  font-family: sans-serif;
-  padding: 0.1rem 1rem;
+  font-weight: bold;
+  font-size: 0.75em;
+  padding: 0.25rem 1.5rem;
   text-transform: uppercase;
 
   &.selected {

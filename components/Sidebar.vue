@@ -43,7 +43,6 @@ export default {
   }
 
   h1 {
-    font-family: sans-serif;
     margin: 0;
     margin-bottom: 1em;
 
