@@ -3,8 +3,10 @@
     <Map />
     <Sidebar />
     <InfoButton />
+    <LayerPickerButton />
     <InfoWindow v-if="infoVisible" />
     <ImageModal v-if="imageModalOpen" />
+    <LayerPicker v-if="layerPickerVisible" />
   </main>
 </template>
 
@@ -36,6 +38,10 @@ export default {
 
     infoVisible() {
       return this.$store.state.info.visible;
+    },
+
+    layerPickerVisible() {
+      return this.$store.state.layerPicker.visible;
     },
   },
 }
