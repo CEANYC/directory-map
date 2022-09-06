@@ -3,8 +3,21 @@
     <div class="close" @click="handleClose">⨉</div>
     <h2>{{properties['Display Name']}}</h2>
     <SectorPill :sector="properties['Sector']" />
-    <div>Address: {{properties['Address']}}</div>
-    <div>{{properties['Brief Description']}}</div>
+    <div class="popup-sections">
+      <PopupSection>{{properties['Brief Description']}}</PopupSection>
+
+      <PopupSection v-if="properties['Address']">
+        Address: {{properties['Address']}}
+      </PopupSection>
+
+      <PopupSection v-if="properties['Phone']">
+        Phone: {{properties['Phone']}}
+      </PopupSection>
+
+      <PopupSection v-if="website">
+        Website: <a :href="website" target="_blank">{{website}}</a>
+      </PopupSection>
+    </div>
   </div>
 </template>
 
@@ -17,7 +30,11 @@ export default {
   computed: {
     properties() {
       return this.feature?.properties ?? {};
-    }
+    },
+
+    website() {
+      return this.properties['Website'];
+    },
   },
 
   methods: {
@@ -28,7 +45,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .popup {
   align-items: flex-start;
   display: flex;
@@ -46,5 +63,9 @@ export default {
     font-size: 2rem;
     top: -0.5rem;
   }
+}
+
+.popup-sections {
+  margin-top: 1rem;
 }
 </style>
