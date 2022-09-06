@@ -131,7 +131,7 @@ export const getters = {
     return [
       state.hoveredFeature,
       rootState.popup.selectedFeatures
-        .map((f) => ({ layer: f.layer.id, id: f.id }))[0],
+        .map((f) => ({ layer: f?.layer?.id, id: f.id }))[0],
     ].filter(v => !!v && Object.keys(v).length > 0);
   },
 }
