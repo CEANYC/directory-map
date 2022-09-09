@@ -90,6 +90,14 @@ export default {
     storeZoom() {
       return this.$store.state.map.zoom;
     },
+
+    unselectedLayers() {
+      return this.$store.getters['layerPicker/unselectedLayers'];
+    },
+
+    selectedLayers() {
+      return this.$store.getters['layerPicker/selectedLayers'];
+    },
   },
 
   methods: {
@@ -151,10 +159,36 @@ export default {
         center: this.storeCenter,
         zoom: this.storeZoom,
       });
-    }
+    },
+
+    changeLayersVisibility(layerIds, visibility) {
+      layerIds.forEach(layerId => {
+        this.map.setLayoutProperty(layerId, 'visibility', visibility);
+      });
+    },
+
+    hideUnselectedLayers() {
+      this.unselectedLayers.forEach(layer => {
+        this.changeLayersVisibility(layer.layerIds, 'none');
+      });
+    },
+
+    showSelectedLayers() {
+      this.selectedLayers.forEach(layer => {
+        this.changeLayersVisibility(layer.layerIds, 'visible');
+      });
+    },
   },
 
   watch: {
+    unselectedLayers() {
+      this.hideUnselectedLayers();
+    },
+
+    selectedLayers() {
+      this.showSelectedLayers();
+    },
+
     selectedSectors() {
       // Since the Sector property is an array, loop over selected sectors to
       // make a series of conditions
