@@ -68,7 +68,7 @@ export default {
   background: white;
   width: 25%;
   position: absolute;
-  z-index: 1001;
+  z-index: 1000;
   left: 1rem;
   bottom: 1rem;
   border-radius: 10px;

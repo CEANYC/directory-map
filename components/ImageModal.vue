@@ -42,5 +42,10 @@ export default {
   align-items: center;
   display: flex;
   justify-content: center;
+
+  img {
+    max-height: 90vh;
+    max-width: 90vw;
+  }
 }
 </style>
