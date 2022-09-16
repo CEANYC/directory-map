@@ -1,11 +1,23 @@
 <template>
   <div class="layer-picker-button" @click="toggle">
-    <img src="/icons/layers.svg" />
+    <img :src="layersIcon" />
   </div>
 </template>
 
 <script>
+import layersIcon from '../icons/layers.svg';
+
 export default {
+  data() {
+    return {
+      layersIcon: null,
+    };
+  },
+
+  mounted() {
+    this.layersIcon = layersIcon;
+  },
+
   methods: {
     toggle() {
       this.layerPickerVisible = !this.layerPickerVisible;
