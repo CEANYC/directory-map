@@ -2,12 +2,14 @@
   <div class="info-window">
     <div class="close" @click="close">⨉</div>
     <div class="content">
-      <h2>Information</h2>
-      <SectorSection
-        v-for="sector in sectors"
-        :key="sector.Name"
-        :sector="sector"
-      />
+      <div class="content-scroll">
+        <h2>Information</h2>
+        <SectorSection
+          v-for="sector in sectors"
+          :key="sector.Name"
+          :sector="sector"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -52,8 +54,12 @@ export default {
 
 .content {
   height: 100%;
-  overflow-y: auto;
   padding: 2em;
+}
+
+.content-scroll {
+  height: 100%;
+  overflow-y: auto;
 }
 
 .close {
