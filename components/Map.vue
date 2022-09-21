@@ -62,6 +62,7 @@ export default {
             16, 1.5,
           ]
         },
+        filter: this.sectorFilter,
       };
     },
 
