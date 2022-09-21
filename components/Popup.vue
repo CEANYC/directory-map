@@ -51,6 +51,8 @@ export default {
   display: flex;
   flex-direction: column;
   position: relative;
+  max-height: 50vh;
+  overflow-y: auto;
 
   h2 {
     margin-top: 0.5em;
