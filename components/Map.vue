@@ -83,6 +83,20 @@ export default {
       return this.$store.state.filters.sectors;
     },
 
+    sectorFilter() {
+      // Since the Sector property is an array, loop over selected sectors to
+      // make a series of conditions
+      return ["any",
+        ...this.selectedSectors.map(sector => (
+          [
+            "in",
+            sector,
+            ["get", "Sector"]
+          ]
+        ))
+      ];
+    },
+
     storeCenter() {
       return this.$store.state.map.center;
     },
@@ -189,18 +203,8 @@ export default {
       this.showSelectedLayers();
     },
 
-    selectedSectors() {
-      // Since the Sector property is an array, loop over selected sectors to
-      // make a series of conditions
-      this.map.setFilter(this.locationsLayer.id, ["any",
-        ...this.selectedSectors.map(sector => (
-          [
-            "in",
-            sector,
-            ["get", "Sector"]
-          ]
-        ))
-      ]);
+    sectorFilter() {
+      this.map.setFilter(this.locationsLayer.id, this.sectorFilter);
     },
 
     highlightedFeatures(currentValue, previousValue) {
