@@ -3,7 +3,27 @@
     <h3 :class="{ name: true, expanded }" @click="toggle">{{name}}</h3>
     <div class="content" v-if="expanded">
       <div v-html="detailsHtml" />
-      <img v-if="imageUrl" :src="imageUrl" @click="handleSelectImage" />
+
+      <section class="voices">
+        <h4>Voices of {{name}}</h4>
+        <img
+          class="voices-image"
+          v-if="imageUrl"
+          :src="imageUrl"
+          @click="handleSelectImage"
+        />
+        <div v-if="voices.name">{{voices.name}}</div>
+        <div v-if="voices.org || voices.role">
+          <span v-if="voices.role">
+            {{voices.role}}<span v-if="voices.org">,</span>
+          </span>
+          <span v-if="voices.org">{{voices.org}}</span>
+        </div>
+        <div class="voices-question" v-if="voices.question">
+          {{voices.question}}
+        </div>
+        <div v-if="voices.quote">{{voices.quote}}</div>
+      </section>
     </div>
   </section>
 </template>
@@ -52,6 +72,17 @@ export default {
     imageUrl() {
       return this.sector.Attachments?.[0]?.url ?? null;
     },
+
+    voices() {
+      return Object.fromEntries(
+        Object.entries(this.sector)
+          .filter(([key]) => key.startsWith('Voices_'))
+          .map(([key, value]) => {
+            if (typeof value === 'string') value = value.trim();
+            return [key.replace('Voices_', ''), value];
+          })
+      );
+    },
   },
 }
 </script>
@@ -59,14 +90,21 @@ export default {
 <style lang="scss" scoped>
 @import "/styles/variables";
 
+h3, h4 {
+  font-family: $support-font-family, sans-serif;
+  font-size: 0.9em;
+  text-transform: uppercase;
+}
+
+section.sector {
+  font-size: 0.8em;
+}
+
 .name {
   border: 1px solid black;
   border-radius: 20px;
   cursor: pointer;
   background: #eee;
-  font-family: $support-font-family, sans-serif;
-  font-size: 0.75em;
-  text-transform: uppercase;
   padding: 1.25em 4.5em;
   position: relative;
 
@@ -96,5 +134,18 @@ img {
 
 .content {
   padding: 0 1.5em;
+}
+
+section.voices {
+  margin: 2rem 0;
+}
+
+.voices-image {
+  margin-bottom: 1rem;
+}
+
+.voices-question {
+  font-style: italic;
+  margin-top: 1rem;
 }
 </style>
