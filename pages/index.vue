@@ -44,6 +44,16 @@ export default {
     layerPickerVisible() {
       return this.$store.state.layerPicker.visible;
     },
+
+    title() {
+      return this.$store.getters['textBlocks/byType']('Title')[0];
+    },
+  },
+
+  head() {
+    return {
+      title: this.title,
+    };
   },
 }
 </script>
