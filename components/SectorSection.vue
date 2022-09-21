@@ -91,6 +91,7 @@ export default {
 img {
   cursor: pointer;
   max-width: 100%;
+  max-height: 40vh;
 }
 
 .content {
