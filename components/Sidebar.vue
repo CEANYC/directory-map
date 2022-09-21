@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar">
     <SidebarSection>
-      <h1>SE NYC Directory</h1>
+      <h1>{{title}}</h1>
       <div class="top-section-content">
         <SectorPicker /> 
         <Search />
@@ -19,7 +19,11 @@ export default {
   computed: {
     selectedFeatures() {
       return this.$store.state.popup.selectedFeatures;
-    }
+    },
+
+    title() {
+      return this.$store.getters['textBlocks/byType']('Title')[0];
+    },
   },
 }
 </script>

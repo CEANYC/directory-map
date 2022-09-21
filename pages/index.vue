@@ -18,6 +18,7 @@ export default {
     const params = this.$route.query;
 
     await this.$store.dispatch('data/loadLocations');
+    await this.$store.dispatch('textBlocks/loadTextBlocks');
     this.$store.dispatch('popup/loadQueryParams', { params });
     this.$store.dispatch('map/loadQueryParams', { params });
     this.$store.dispatch('filters/loadQueryParams', { params });
