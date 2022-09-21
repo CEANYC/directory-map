@@ -5,6 +5,7 @@
       :key="sector"
       :sector="sector"
       :selected="isSelected(sector)"
+      :interactive="true"
       @click.native="handleClick(sector)"
     />
   </div>

@@ -2,7 +2,8 @@
   <div :class="{
     'sector-pill': true,
     [slug(sector)]: true,
-    selected
+    selected,
+    interactive,
   }">
     {{sector}}
   </div>
@@ -11,6 +12,10 @@
 <script>
 export default {
   props: {
+    interactive: {
+      type: Boolean,
+      default: false,
+    },
     sector: String,
     selected: {
       type: Boolean,
@@ -70,6 +75,10 @@ export default {
     &.worker {
       background: #FDCC0D;
     }
+  }
+
+  &.interactive:hover {
+    filter: brightness(90%);
   }
 }
 </style>
