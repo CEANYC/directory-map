@@ -9,6 +9,7 @@
           :key="sector.Name"
           :sector="sector"
         />
+        <Contributors />
       </div>
     </div>
   </div>
