@@ -66,7 +66,7 @@ export default {
 .close {
   cursor: pointer;
   float: right;
-  font-size: 2rem;
+  font-size: 1.5rem;
   margin-right: 0.25em;
 }
 </style>
