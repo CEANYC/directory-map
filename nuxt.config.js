@@ -3,7 +3,7 @@ export default {
   target: 'static',
 
   router: {
-    base: '/directory-map/'
+    base: '/'
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
