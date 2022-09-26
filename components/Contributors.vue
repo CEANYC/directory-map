@@ -18,7 +18,6 @@ export default {
     },
 
     contributorsTextBlocks() {
-      console.log(this.$store.getters['textBlocks/byType']('Contributors'));
       return this.$store.getters['textBlocks/byType']('Contributors');
     },
   },
