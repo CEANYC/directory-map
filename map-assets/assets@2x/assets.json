@@ -1,0 +1,102 @@
+[
+  {
+    "id": "marker_housing",
+    "fileName": "marker_housing.png",
+    "scale": 2
+  },
+  {
+    "id": "marker_worker",
+    "fileName": "marker_worker.png",
+    "scale": 2
+  },
+  {
+    "id": "marker_credit_unions",
+    "fileName": "marker_credit_unions.png",
+    "scale": 2
+  },
+  {
+    "id": "marker_gardens",
+    "fileName": "marker_gardens.png",
+    "scale": 2
+  },
+  {
+    "id": "marker_clts",
+    "fileName": "marker_clts.png",
+    "scale": 2
+  },
+  {
+    "id": "marker_energy",
+    "fileName": "marker_energy.png",
+    "scale": 2
+  },
+  {
+    "id": "marker_food",
+    "fileName": "marker_food.png",
+    "scale": 2
+  },
+  {
+    "id": "marker_csas",
+    "fileName": "marker_csas.png",
+    "scale": 2
+  },
+  {
+    "id": "marker_story",
+    "fileName": "marker_story.png",
+    "scale": 2
+  },
+  {
+    "id": "marker_stroke",
+    "fileName": "marker_stroke.png",
+    "scale": 2
+  },
+  {
+    "id": "marker_housing_highlight",
+    "fileName": "marker_housing_highlight.png",
+    "scale": 2
+  },
+  {
+    "id": "marker_worker_highlight",
+    "fileName": "marker_worker_highlight.png",
+    "scale": 2
+  },
+  {
+    "id": "marker_credit_unions_highlight",
+    "fileName": "marker_credit_unions_highlight.png",
+    "scale": 2
+  },
+  {
+    "id": "marker_gardens_highlight",
+    "fileName": "marker_gardens_highlight.png",
+    "scale": 2
+  },
+  {
+    "id": "marker_clts_highlight",
+    "fileName": "marker_clts_highlight.png",
+    "scale": 2
+  },
+  {
+    "id": "marker_energy_highlight",
+    "fileName": "marker_energy_highlight.png",
+    "scale": 2
+  },
+  {
+    "id": "marker_food_highlight",
+    "fileName": "marker_food_highlight.png",
+    "scale": 2
+  },
+  {
+    "id": "marker_csas_highlight",
+    "fileName": "marker_csas_highlight.png",
+    "scale": 2
+  },
+  {
+    "id": "marker_story_highlight",
+    "fileName": "marker_story_highlight.png",
+    "scale": 2
+  },
+  {
+    "id": "marker_stroke_highlight",
+    "fileName": "marker_stroke_highlight.png",
+    "scale": 2
+  }
+]
