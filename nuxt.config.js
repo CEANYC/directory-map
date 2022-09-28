@@ -12,8 +12,27 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      { hid: 'description', name: 'description', content: 'Seeds of Solidarity' },
       { name: 'format-detection', content: 'telephone=no' },
+      {
+        name: 'apple-mobile-web-app-title',
+        content: 'Seeds of Solidarity'
+      },
+      {
+        name: 'og:title',
+        property: 'og:title',
+        content: 'Seeds of Solidarity'
+      },
+      {
+        name: 'og:site_name',
+        property: 'og:site_name',
+        content: 'Seeds of Solidarity'
+      },
+      {
+        name: 'og:description',
+        property: 'og:description',
+        content: 'Map of the solidarity economy in NYC'
+      },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     link: [{ rel: "preconnect", href: "https://fonts.googleapis.com" }],
