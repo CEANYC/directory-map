@@ -10,6 +10,9 @@
           :sector="sector"
         />
         <Contributors />
+        <a href="https://gocoopnyc.org/" target="_blank">
+          <img class="ceanyc-logo" src="/ceanyc-logo.png" />
+        </a>
       </div>
     </div>
   </div>
@@ -61,6 +64,10 @@ export default {
 .content-scroll {
   height: 100%;
   overflow-y: auto;
+}
+
+.ceanyc-logo {
+  max-width: 250px;
 }
 
 .close {
