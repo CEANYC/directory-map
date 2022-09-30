@@ -1,6 +1,3 @@
-/*! showdown v 2.1.0 - 21-04-2022 */
-
-
 /*!
   * vue-router v3.5.3
   * (c) 2021 Evan You
@@ -31,3 +28,6 @@
  * (c) 2018-present egoist <0x142857@gmail.com>
  * Released under the MIT License.
  */
+
+
+/*! showdown v 2.1.0 - 21-04-2022 */
