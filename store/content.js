@@ -15,7 +15,8 @@ export const mutations = {
 export const actions = {
   async loadSectors({ commit }) {
     const sectors = (await getSectors())
-      .filter(({ Status }) => Status === "Done");
+      .filter(({ Status }) => Status === "Done")
+      .sort((a, b) => a.Order - b.Order);
     commit("setSectors", { sectors });
   },
 };
