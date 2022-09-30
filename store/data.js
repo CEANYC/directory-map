@@ -8,15 +8,21 @@ export const state = () => {
 };
 
 export const mutations = {
+  addLocations(state, { locations }) {
+    state.locations = [...state.locations, ...locations];
+  },
+
   setLocations(state, { locations }) {
     state.locations = locations;
   },
 };
 
 export const actions = {
-  async loadLocations({ commit }) {
-    const locations = (await getLocations()).map(fromAirtable);
-    commit("setLocations", { locations });
+  async loadLocations({ commit, dispatch }, { params }) {
+    await getLocations(records => {
+      commit("addLocations", { locations: records.map(fromAirtable) });
+    });
+    dispatch('popup/loadQueryParams', { params }, { root: true });
   },
 };
 

@@ -119,8 +119,8 @@ export default {
     mapLoaded({ map }) {
       this.map = map;
       this.map.jumpTo({
-        center: this.center,
-        zoom: this.zoom
+        center: this.storeCenter,
+        zoom: this.storeZoom
       });
 
       loadStoredFigmassets({ map, path: "map-assets/assets@2x" });
@@ -205,7 +205,9 @@ export default {
     },
 
     sectorFilter() {
-      this.map.setFilter(this.locationsLayer.id, this.sectorFilter);
+      if (this.map) {
+        this.map.setFilter(this.locationsLayer.id, this.sectorFilter);
+      }
     },
 
     highlightedFeatures(currentValue, previousValue) {

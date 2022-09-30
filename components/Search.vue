@@ -43,9 +43,11 @@ export default {
 
   watch: {
     selected() {
-      this.$store.dispatch('popup/setSelectedFeatures', {
-        selectedFeatures: [toGeoJsonFeature(this.selectedLocation)]
-      });
+      const selectedFeatures = [{
+        ...toGeoJsonFeature(this.selectedLocation),
+        layer: { id: 'locations' },
+      }];
+      this.$store.dispatch('popup/setSelectedFeatures', { selectedFeatures });
 
       const { lat, lon } = this.selectedLocation;
       this.$store.dispatch('map/setPosition', {

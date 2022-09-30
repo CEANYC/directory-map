@@ -7,7 +7,7 @@ import {
   AIRTABLE_TEXT_BLOCKS_TABLE,
 } from "@/constants";
 
-const getRecords = async (table) => {
+const getRecords = async (table, progressCallback) => {
   const base = new Airtable({apiKey: AIRTABLE_API_KEY}).base(AIRTABLE_DATABASE_ID);
 
   return new Promise((resolve, reject) => {
@@ -16,10 +16,11 @@ const getRecords = async (table) => {
     base(table).select({ maxRecords: 2500 })
       .eachPage(
         (records, fetchNextPage) => {
-          allRecords = [
-            ...allRecords,
-            ...records.map(r => r.fields)
-          ];
+          const recordsBatch = records.map(r => r.fields);
+          allRecords = [...allRecords, ...recordsBatch];
+          if (progressCallback) {
+            progressCallback(recordsBatch);
+          }
           fetchNextPage();
         },
         err => {
@@ -30,8 +31,8 @@ const getRecords = async (table) => {
   });
 };
 
-export const getLocations = async () => {
-  return await getRecords(AIRTABLE_LISTINGS_TABLE);
+export const getLocations = async (progressCallback) => {
+  return await getRecords(AIRTABLE_LISTINGS_TABLE, progressCallback);
 };
 
 export const getSectors = async () => {
