@@ -10,3 +10,5 @@ export const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoiY2VhbnljIiwiYSI6ImNsMzV5NnV2ZjM0Y
 export const INITIAL_ZOOM = 12;
 export const INITIAL_CENTER = { lng: -73.990, lat: 40.693 };
 export const MAXIMUM_EXTENT = [-74.464, 40.368, -73.453, 41.065];
+
+export const CEANYC_URL = 'https://gocoopnyc.org/';

@@ -3,6 +3,7 @@
     <Map />
     <Sidebar />
     <InfoButton />
+    <LogoButton />
     <LayerPickerButton />
     <InfoWindow v-if="infoVisible" />
     <ImageModal v-if="imageModalOpen" />
