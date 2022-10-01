@@ -1,6 +1,6 @@
 <template>
   <div class="info-button" @click="toggle">
-    <span class="button-text">i</span>
+    <span class="button-text">Information</span>
   </div>
 </template>
 
@@ -33,16 +33,19 @@ export default {
   background: white;
   cursor: pointer;
   display: flex;
-  font-size: 3em;
+  font-size: 1.5em;
   justify-content: center;
-  width: 1.1em;
-  height: 1.1em;
+  padding: 0.5rem;
   text-align: center;
   position: absolute;
   z-index: 1000;
   top: 1rem;
   right: 1rem;
   border-radius: 10px;
+
+  &:hover {
+    background: #eee;
+  }
 
   @media (max-width: $mobile-maximum) {
     top: unset;
