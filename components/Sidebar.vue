@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar">
-    <SidebarSection>
+    <SidebarSection class="top-section">
       <h1>{{title}}</h1>
       <div class="top-section-content">
         <SectorPicker /> 
@@ -78,5 +78,11 @@ export default {
   .sidebar .sector-picker {
     display: none;
   }
+}
+
+.top-section {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
 }
 </style>
