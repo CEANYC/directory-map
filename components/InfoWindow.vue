@@ -4,12 +4,13 @@
     <div class="content">
       <div class="content-scroll">
         <h2>Information</h2>
+        <TextBlock type="About" />
         <SectorSection
           v-for="sector in sectors"
           :key="sector.Name"
           :sector="sector"
         />
-        <Contributors />
+        <TextBlock type="Contributors" />
         <a href="https://gocoopnyc.org/" target="_blank">
           <img class="ceanyc-logo" src="/ceanyc-logo.png" />
         </a>
@@ -36,6 +37,11 @@ export default {
 
 <style lang="scss" scoped>
 @import "../styles/variables.scss";
+
+h2 {
+  padding-left: 0.5em;
+  margin-bottom: 0;
+}
 
 .info-window {
   background: white;

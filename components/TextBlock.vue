@@ -1,7 +1,7 @@
 <template>
-  <div class="contributors">
+  <div class="text-block">
     <div
-      v-for="block in contributorsTextBlocks"
+      v-for="block in textBlocks"
       :key="block"
       v-html="markdownConverter.makeHtml(block)"
     />
@@ -12,13 +12,17 @@
 import showdown from 'showdown';
 
 export default {
+  props: {
+    type: String,
+  },
+
   computed: {
     markdownConverter() {
       return new showdown.Converter({ simpleLineBreaks: true });
     },
 
-    contributorsTextBlocks() {
-      return this.$store.getters['textBlocks/byType']('Contributors');
+    textBlocks() {
+      return this.$store.getters['textBlocks/byType'](this.type);
     },
   },
 }
@@ -27,7 +31,7 @@ export default {
 <style lang="scss" scoped>
 @import "../styles/variables.scss";
 
-.contributors {
+.text-block {
   padding: 1em;
   font-size: 0.8em;
 }
