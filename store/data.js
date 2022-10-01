@@ -18,9 +18,17 @@ export const mutations = {
 };
 
 export const actions = {
-  async loadLocations({ commit, dispatch }, { params }) {
+  async loadLocations({ commit, dispatch, getters, rootState }, { params }) {
+    dispatch('filters/loadQueryParams', { params }, { root: true });
+    const sectorFilters = rootState.filters.sectors.length;
+
     await getLocations(records => {
       commit("addLocations", { locations: records.map(fromAirtable) });
+      if (!sectorFilters) {
+        dispatch('filters/setSectors', {
+          sectors: getters['sectors'],
+        }, { root: true });
+      }
     });
     dispatch('popup/loadQueryParams', { params }, { root: true });
   },

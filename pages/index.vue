@@ -19,14 +19,7 @@ export default {
     this.$store.dispatch('map/loadQueryParams', { params });
     this.$store.dispatch('data/loadLocations', { params });
     this.$store.dispatch('textBlocks/loadTextBlocks');
-    this.$store.dispatch('filters/loadQueryParams', { params });
     this.$store.dispatch('content/loadSectors');
-
-    if (!this.$store.state.filters.sectors.length) {
-      this.$store.dispatch('filters/setSectors', {
-        sectors: this.$store.getters['data/sectors'],
-      });
-    }
   },
 
   computed: {
