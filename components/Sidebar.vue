@@ -78,6 +78,10 @@ export default {
   .sidebar .sector-picker {
     display: none;
   }
+
+  .top-section-content {
+    width: 100%;
+  }
 }
 
 .top-section {

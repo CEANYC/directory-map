@@ -65,6 +65,10 @@ h2 {
 .content {
   height: 100%;
   padding: 2em;
+
+  @media (max-width: $mobile-maximum) {
+    padding: 0.5em;
+  }
 }
 
 .content-scroll {
@@ -81,5 +85,13 @@ h2 {
   float: right;
   font-size: 1.5rem;
   margin-right: 0.25em;
+
+  @media (max-width: $mobile-maximum) {
+    font-size: 3rem;
+    background: white;
+    right: 1rem;
+    position: absolute;
+    z-index: 1001;
+  }
 }
 </style>
