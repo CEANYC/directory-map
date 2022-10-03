@@ -1,6 +1,6 @@
 <template>
   <div class="info-button" @click="toggle">
-    <span class="button-text">Information</span>
+    <span class="button-text">About</span>
   </div>
 </template>
 

@@ -3,7 +3,7 @@
     <div class="close" @click="close">⨉</div>
     <div class="content">
       <div class="content-scroll">
-        <h2>Information</h2>
+        <h2>About</h2>
         <TextBlock type="About" />
         <SectorSection
           v-for="sector in sectors"
