@@ -3795,10 +3795,10 @@ figgy-pudding@^3.5.1:
   resolved "https://registry.yarnpkg.com/figgy-pudding/-/figgy-pudding-3.5.2.tgz#b4eee8148abb01dcf1d1ac34367d59e12fa61d6e"
   integrity sha512-0btnI/H8f2pavGMN8w40mlSKOfTK2SVJmBfBeVIj3kNw0swwgzyRq0d5TJVOwodFmtvpPeWPN/MCcfuWF0Ezbw==
 
-figmasset@^0.1.6:
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/figmasset/-/figmasset-0.1.6.tgz#a2954703163266ba88ed579b38a7974bd50c32ee"
-  integrity sha512-Tmgm1QiOarmXap6zsXFRYkAi4rdcUTEJzd3JCGFLtxcYlANZZ8+Sd17sk684nt9JuRUGjSSwlDmHGTmWAaAPMw==
+figmasset@^0.1.7:
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/figmasset/-/figmasset-0.1.7.tgz#8b6919b86d78abf61cc277a81c840346a486578d"
+  integrity sha512-hr1HfTfRiQDflAoIp53rJyuxFefdWnsMKYsdxpO2C9vnUlf2B4brSAYQtO2TD2SaS+wMZsgKSsFOborhOopR+A==
 
 figures@^3.0.0:
   version "3.2.0"
