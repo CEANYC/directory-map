@@ -13,6 +13,7 @@
       :zoom="zoom"
     >
       <MglGeojsonLayer
+        v-if="assetsLoaded"
         sourceId="locations"
         @mousemove="handleMouseMove"
         @mouseleave="handleMouseLeave"
@@ -43,12 +44,20 @@ export default {
       style: MAPBOX_STYLE,
       hovered: false,
 
+      assetsLoaded: false,
       center: INITIAL_CENTER,
       zoom: INITIAL_ZOOM,
     };
   },
 
   computed: {
+    expectedImages() {
+      return Array.from(new Set(
+        this.locationsGeoJson.features
+          .map(f => `marker_${f.properties.sectorSlug}`)
+      ));
+    },
+
     locationsLayer() {
       return {
         id: 'locations',
@@ -124,6 +133,13 @@ export default {
       });
 
       loadStoredFigmassets({ map, path: "map-assets/assets@2x" });
+
+      setTimeout(() => {
+        const hasAllImages = this.expectedImages.filter(i =>
+          !this.map.hasImage(i));
+        this.assetsLoaded = true;
+      }, 200);
+
     },
 
     handleClick(e) {
