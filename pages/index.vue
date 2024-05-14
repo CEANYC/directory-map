@@ -19,6 +19,8 @@ export default {
     const params = this.$route.query;
     this.$store.dispatch('map/loadQueryParams', { params });
     this.$store.dispatch('data/loadLocations', { params });
+    this.$store.dispatch('data/loadCommunityFridges');
+    this.$store.dispatch('data/loadMeshNodes');
     this.$store.dispatch('textBlocks/loadTextBlocks');
     this.$store.dispatch('content/loadSectors');
   },

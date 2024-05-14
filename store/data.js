@@ -1,5 +1,9 @@
 import { getLocations } from "@/connectors/airtable";
+import { get as getCommunityFridges } from "@/connectors/communityFridges";
+import { get as getMeshNodes } from "@/connectors/meshNodes";
 import { fromAirtable, toGeoJson } from "@/transformers/locations";
+import { fromSource as fromCommunityFridgesSource } from "@/transformers/communityFridges";
+import { fromSource as fromMeshNodes } from "@/transformers/meshNodes";
 
 export const state = () => {
   return {
@@ -9,6 +13,7 @@ export const state = () => {
 
 export const mutations = {
   addLocations(state, { locations }) {
+    console.log(locations);
     state.locations = [...state.locations, ...locations];
   },
 
@@ -31,6 +36,18 @@ export const actions = {
       }
     });
     dispatch('popup/loadQueryParams', { params }, { root: true });
+  },
+
+  async loadCommunityFridges({ commit }) {
+    const fridges = await getCommunityFridges();
+    const locations = Object.values(fridges).map(fromCommunityFridgesSource);
+    commit("addLocations", { locations });
+  },
+
+  async loadMeshNodes({ commit }) {
+    const nodes = await getMeshNodes();
+    const locations = Object.values(nodes).map(fromMeshNodes);
+    commit("addLocations", { locations });
   },
 };
 
