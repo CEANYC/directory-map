@@ -10,8 +10,7 @@ export const fromSource = d => {
     // Address: `${d.streetAddress} ${d.neighborhood} ${d.borough}`,
     // 'Display Name': d.name,
     Sector: 'Mesh NYC Nodes',
-    // sectorSlug: 'community-fridges',
-    sectorSlug: 'stroke', // TODO just using temporarily while we finalize colors
+    sectorSlug: 'mesh_nodes', // TODO just using temporarily while we finalize colors
   };
 };
 
