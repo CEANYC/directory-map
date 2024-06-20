@@ -8,9 +8,10 @@ export const fromSource = d => {
     lon: d.coordinates[0],
     // TODO filter by status?
     // Address: `${d.streetAddress} ${d.neighborhood} ${d.borough}`,
-    // 'Display Name': d.name,
+    'Display Name': 'NYC Mesh Node',
+    'Website' : 'https://www.nycmesh.net/',
     Sector: 'Mesh NYC Nodes',
-    sectorSlug: 'mesh_nodes', // TODO just using temporarily while we finalize colors
+    sectorSlug: 'mesh_nodes', 
   };
 };
 
