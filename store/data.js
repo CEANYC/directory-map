@@ -13,7 +13,6 @@ export const state = () => {
 
 export const mutations = {
   addLocations(state, { locations }) {
-    console.log(locations);
     state.locations = [...state.locations, ...locations];
   },
 
