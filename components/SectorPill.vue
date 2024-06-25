@@ -75,6 +75,15 @@ export default {
     &.worker {
       background: #FDCC0D;
     }
+
+    &.community-fridges {
+      background: #4E1094;
+    }
+    
+    &.mesh-nyc-nodes {
+      background: #094084;
+    }
+
   }
 
   &.interactive:hover {

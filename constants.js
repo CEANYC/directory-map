@@ -12,3 +12,6 @@ export const INITIAL_CENTER = { lng: -73.990, lat: 40.693 };
 export const MAXIMUM_EXTENT = [-74.464, 40.368, -73.453, 41.065];
 
 export const CEANYC_URL = 'https://gocoopnyc.org/';
+
+export const COMMUNITY_FRIDGES_URL = 'https://nycfridge-1595334632389.firebaseio.com/fridges.json';
+export const MESH_NODES_URL = 'https://node-db.netlify.app/nodes.json';

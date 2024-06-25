@@ -98,5 +98,35 @@
     "id": "marker_stroke_highlight",
     "fileName": "marker_stroke_highlight.png",
     "scale": 2
+  },
+  {
+    "id": "marker_community_fridges_highlight",
+    "fileName": "marker_community_fridges_highlight.png",
+    "scale": 2
+  },
+  {
+    "id": "marker_community_fridges",
+    "fileName": "marker_community_fridges.png",
+    "scale": 2
+  },
+  {
+    "id": "marker_mesh",
+    "fileName": "marker_mesh.png",
+    "scale": 2
+  },
+  {
+    "id": "marker_mesh_highlight",
+    "fileName": "marker_mesh_highlight.png",
+    "scale": 2
+  },
+  {
+    "id": "marker_mesh_nodes",
+    "fileName": "marker_mesh_nodes.png",
+    "scale": 2
+  },
+  {
+    "id": "marker_mesh_nodes_highlight",
+    "fileName": "marker_mesh_nodes_highlight.png",
+    "scale": 2
   }
 ]
