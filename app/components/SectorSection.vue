@@ -1,28 +1,28 @@
 <template>
   <section class="sector">
-    <h3 :class="{ name: true, expanded }" @click="toggle">{{name}}</h3>
+    <h3 :class="{ name: true, expanded }" @click="toggle">{{ name }}</h3>
     <div class="content" v-if="expanded">
       <div v-html="detailsHtml" />
 
       <section class="voices">
-        <h4>Voices of {{name}}</h4>
+        <h4>Voices of {{ name }}</h4>
         <img
           class="voices-image"
           v-if="imageUrl"
           :src="imageUrl"
           @click="handleSelectImage"
         />
-        <div v-if="voices.name">{{voices.name}}</div>
+        <div v-if="voices.name">{{ voices.name }}</div>
         <div v-if="voices.org || voices.role">
           <span v-if="voices.role">
-            {{voices.role}}<span v-if="voices.org">,</span>
+            {{ voices.role }}<span v-if="voices.org">,</span>
           </span>
-          <span v-if="voices.org">{{voices.org}}</span>
+          <span v-if="voices.org">{{ voices.org }}</span>
         </div>
         <div class="voices-question" v-if="voices.question">
-          {{voices.question}}
+          {{ voices.question }}
         </div>
-        <div v-if="voices.quote">{{voices.quote}}</div>
+        <div v-if="voices.quote">{{ voices.quote }}</div>
       </section>
     </div>
   </section>
@@ -75,9 +75,10 @@ const voices = computed(() => {
 </script>
 
 <style lang="scss" scoped>
-@use "../../styles/variables.scss" as *;
+@use '../../styles/variables.scss' as *;
 
-h3, h4 {
+h3,
+h4 {
   font-family: $support-font-family, sans-serif;
   font-size: 0.9em;
   text-transform: uppercase;
@@ -96,7 +97,7 @@ section.sector {
   position: relative;
 
   &::after {
-    content: "›";
+    content: '›';
     font-size: 2em;
     line-height: 0;
     position: absolute;

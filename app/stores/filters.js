@@ -14,7 +14,7 @@ export const useFiltersStore = defineStore('filters', {
   getters: {
     queryParams(state) {
       return {
-        sectors: state.sectors.length === 0 ? null : state.sectors.join('|')
+        sectors: state.sectors.length === 0 ? null : state.sectors.join('|'),
       };
     },
   },

@@ -26,11 +26,10 @@ const textBlocks = computed(() => {
 </script>
 
 <style lang="scss" scoped>
-@use "../../styles/variables.scss" as *;
+@use '../../styles/variables.scss' as *;
 
 .text-block {
   padding: 1em;
   font-size: 0.8em;
 }
 </style>
-

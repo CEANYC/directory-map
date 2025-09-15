@@ -1,9 +1,9 @@
-import { getLocations } from "@/connectors/airtable";
-import { get as getCommunityFridges } from "@/connectors/communityFridges";
-import { get as getMeshNodes } from "@/connectors/meshNodes";
-import { fromAirtable, toGeoJson } from "@/transformers/locations";
-import { fromSource as fromCommunityFridgesSource } from "@/transformers/communityFridges";
-import { fromSource as fromMeshNodes } from "@/transformers/meshNodes";
+import { getLocations } from '@/connectors/airtable';
+import { get as getCommunityFridges } from '@/connectors/communityFridges';
+import { get as getMeshNodes } from '@/connectors/meshNodes';
+import { fromAirtable, toGeoJson } from '@/transformers/locations';
+import { fromSource as fromCommunityFridgesSource } from '@/transformers/communityFridges';
+import { fromSource as fromMeshNodes } from '@/transformers/meshNodes';
 
 export const useDataStore = defineStore('data', {
   state: () => ({
@@ -21,7 +21,7 @@ export const useDataStore = defineStore('data', {
 
       const { sectors } = storeToRefs(filtersStore);
 
-      await getLocations(apiKey, records => {
+      await getLocations(apiKey, (records) => {
         this.addLocations(records.map(fromAirtable));
       });
 
@@ -45,9 +45,9 @@ export const useDataStore = defineStore('data', {
   },
 
   getters: {
-    locationsGeoJson: state => toGeoJson(state.locations),
+    locationsGeoJson: (state) => toGeoJson(state.locations),
 
-    sectors: state => {
+    sectors: (state) => {
       const sectorsFlattened = state.locations
         .map(({ Sector }) => Sector)
         .flat(Infinity);

@@ -1,7 +1,7 @@
 /*
  * Try to match airtable records
  */
-export const fromSource = d => {
+export const fromSource = (d) => {
   return {
     ID: d.id,
     lat: d.coordinates[1],
@@ -9,9 +9,8 @@ export const fromSource = d => {
     // TODO filter by status?
     // Address: `${d.streetAddress} ${d.neighborhood} ${d.borough}`,
     'Display Name': 'NYC Mesh Node',
-    'Website' : 'https://www.nycmesh.net/',
+    Website: 'https://www.nycmesh.net/',
     Sector: 'Mesh NYC Nodes',
-    sectorSlug: 'mesh_nodes', 
+    sectorSlug: 'mesh_nodes',
   };
 };
-

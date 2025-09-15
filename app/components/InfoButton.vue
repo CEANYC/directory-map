@@ -15,7 +15,7 @@ const toggle = () => {
 </script>
 
 <style lang="scss" scoped>
-@use "../../styles/variables.scss" as *;
+@use '../../styles/variables.scss' as *;
 
 .info-button {
   align-items: center;

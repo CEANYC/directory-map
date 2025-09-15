@@ -1,4 +1,4 @@
-import { COMMUNITY_FRIDGES_URL } from "@/constants";
+import { COMMUNITY_FRIDGES_URL } from '@/constants';
 
 const getRecords = async () => {
   const response = await fetch(COMMUNITY_FRIDGES_URL);

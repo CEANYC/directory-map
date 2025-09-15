@@ -1,9 +1,9 @@
 <template>
   <div class="sidebar">
     <SidebarSection class="top-section">
-      <h1>{{title}}</h1>
+      <h1>{{ title }}</h1>
       <div class="top-section-content">
-        <SectorPicker /> 
+        <SectorPicker />
         <Search />
       </div>
     </SidebarSection>
@@ -25,7 +25,7 @@ const title = computed(() => {
 </script>
 
 <style lang="scss" scoped>
-@use "../../styles/variables.scss" as *;
+@use '../../styles/variables.scss' as *;
 
 .sidebar {
   border-radius: 20px;
@@ -68,7 +68,7 @@ const title = computed(() => {
 </style>
 
 <style lang="scss">
-@use "../../styles/variables.scss" as *;
+@use '../../styles/variables.scss' as *;
 
 @media (max-width: $mobile-maximum) {
   .sidebar .sector-picker {

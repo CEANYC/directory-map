@@ -12,6 +12,6 @@ export const useImageModalStore = defineStore('imageModal', {
     close() {
       this.imageUrl = null;
       this.open = false;
-    }
+    },
   },
 });

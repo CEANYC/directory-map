@@ -6,9 +6,9 @@ function QueryPlugin({ store }) {
     router.replace({
       query: queryStore.params,
     });
-  })
+  });
 }
 
 export default defineNuxtPlugin(({ $pinia }) => {
-  $pinia.use(QueryPlugin)
-})
+  $pinia.use(QueryPlugin);
+});

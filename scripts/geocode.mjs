@@ -1,7 +1,7 @@
-import Airtable from "airtable";
-import fetch from "cross-fetch";
+import Airtable from 'airtable';
+import fetch from 'cross-fetch';
 
-import * as constants from "../constants.js";
+import * as constants from '../constants.js';
 
 const AIRTABLE_API_KEY_WRITABLE = process.env.AIRTABLE_API_KEY_WRITABLE;
 const AIRTABLE_MAX_UPDATE_SIZE = 10;
@@ -11,7 +11,9 @@ const GEOCLIENT_URL = 'https://api.nyc.gov/geo/geoclient/v1/search.json';
 let allParametersPresent = true;
 
 if (!AIRTABLE_API_KEY_WRITABLE) {
-  console.error('AIRTABLE_API_KEY_WRITABLE not set, writable Airtable API KEY required');
+  console.error(
+    'AIRTABLE_API_KEY_WRITABLE not set, writable Airtable API KEY required'
+  );
   allParametersPresent = false;
 }
 
@@ -26,15 +28,17 @@ if (!allParametersPresent) {
 }
 
 const getBase = () => {
-  return new Airtable({apiKey: AIRTABLE_API_KEY_WRITABLE})
-    .base(constants.AIRTABLE_DATABASE_ID);
+  return new Airtable({ apiKey: AIRTABLE_API_KEY_WRITABLE }).base(
+    constants.AIRTABLE_DATABASE_ID
+  );
 };
 
 const getLocations = async () => {
-  await getBase()(constants.AIRTABLE_LISTINGS_TABLE).select({
-    filterByFormula: "OR({lon} = '', {lat} = '')",
-    maxRecords: 2500,
-  })
+  await getBase()(constants.AIRTABLE_LISTINGS_TABLE)
+    .select({
+      filterByFormula: "OR({lon} = '', {lat} = '')",
+      maxRecords: 2500,
+    })
     .eachPage(async (records, fetchNextPage) => {
       console.log(`Found ${records.length} records missing locations`);
       await updateRecords(records);
@@ -44,15 +48,17 @@ const getLocations = async () => {
 
 const updateRecords = async (records) => {
   const results = await Promise.all(records.map(geocode));
-  let updateSet = records.map((record, index) => {
-    const { id } = record;
-    const { latitude: lat, longitude: lon } = results[index]?.response ?? {};
-    if (!lat || !lon) return;
-    return {
-      id,
-      fields: { lat, lon }
-    };
-  }).filter(v => !!v);
+  let updateSet = records
+    .map((record, index) => {
+      const { id } = record;
+      const { latitude: lat, longitude: lon } = results[index]?.response ?? {};
+      if (!lat || !lon) return;
+      return {
+        id,
+        fields: { lat, lon },
+      };
+    })
+    .filter((v) => !!v);
   console.log(`Found ${updateSet.length} geocode results`);
 
   // We break the set into batches since Airtable only allows 10 at a time
@@ -70,7 +76,7 @@ const updateRecords = async (records) => {
           console.error(err);
           return;
         }
-        records.forEach(r => console.log(r.get('ID')));
+        records.forEach((r) => console.log(r.get('ID')));
       }
     );
   }
@@ -79,7 +85,7 @@ const updateRecords = async (records) => {
 const geocode = async (location) => {
   const address = location.fields.Address;
   const response = await fetch(`${GEOCLIENT_URL}?input=${address}`, {
-    headers: { "Ocp-Apim-Subscription-Key": GEOCLIENT_API_KEY }
+    headers: { 'Ocp-Apim-Subscription-Key': GEOCLIENT_API_KEY },
   });
   return (await response.json()).results[0];
 };

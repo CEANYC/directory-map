@@ -9,7 +9,7 @@ export const usePopupStore = defineStore('popup', {
       const dataStore = useDataStore();
       const selectedFeatures = dataStore.locationsGeoJson.features
         .filter(({ id }) => id === +params.selectedFeature)
-        .map(f => ({ ...f, layer: { id: 'locations' } }));
+        .map((f) => ({ ...f, layer: { id: 'locations' } }));
 
       if (!selectedFeatures) return;
       this.selectedFeatures = selectedFeatures;

@@ -1,21 +1,21 @@
 <template>
   <div class="popup">
     <div class="close" @click="handleClose">⨉</div>
-    <h2>{{properties['Display Name']}}</h2>
+    <h2>{{ properties['Display Name'] }}</h2>
     <SectorPill :sector="properties['Sector']" />
     <div class="popup-sections">
-      <PopupSection>{{properties['Brief Description']}}</PopupSection>
+      <PopupSection>{{ properties['Brief Description'] }}</PopupSection>
 
       <PopupSection v-if="properties['Address']">
-        Address: {{properties['Address']}}
+        Address: {{ properties['Address'] }}
       </PopupSection>
 
       <PopupSection v-if="properties['Phone']">
-        Phone: {{properties['Phone']}}
+        Phone: {{ properties['Phone'] }}
       </PopupSection>
 
       <PopupSection v-if="website">
-        Website: <a :href="website" target="_blank">{{website}}</a>
+        Website: <a :href="website" target="_blank">{{ website }}</a>
       </PopupSection>
     </div>
   </div>

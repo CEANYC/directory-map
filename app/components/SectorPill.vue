@@ -1,11 +1,13 @@
 <template>
-  <div :class="{
-    'sector-pill': true,
-    [slug(sector)]: true,
-    selected,
-    interactive,
-  }">
-    {{sector}}
+  <div
+    :class="{
+      'sector-pill': true,
+      [slug(sector)]: true,
+      selected,
+      interactive,
+    }"
+  >
+    {{ sector }}
   </div>
 </template>
 
@@ -28,7 +30,7 @@ export default {
       return sector.toLowerCase().replaceAll(' ', '-');
     },
   },
-}
+};
 </script>
 
 <style lang="scss">
@@ -45,45 +47,44 @@ export default {
 
   &.selected {
     &.credit-unions {
-      background: #5BA8F7;
+      background: #5ba8f7;
     }
 
     &.clts {
-      background: #33B983;
+      background: #33b983;
     }
 
     &.csas {
-      background: #CC34CD;
+      background: #cc34cd;
     }
 
     &.energy {
-      background: #1077F3;
+      background: #1077f3;
     }
 
     &.food {
-      background: #7018D3;
+      background: #7018d3;
     }
 
     &.gardens {
-      background: #72B622;
+      background: #72b622;
     }
 
     &.housing {
-      background: #F98517;
+      background: #f98517;
     }
 
     &.worker {
-      background: #FDCC0D;
+      background: #fdcc0d;
     }
 
     &.community-fridges {
-      background: #4E1094;
+      background: #4e1094;
     }
-    
+
     &.mesh-nyc-nodes {
       background: #094084;
     }
-
   }
 
   &.interactive:hover {

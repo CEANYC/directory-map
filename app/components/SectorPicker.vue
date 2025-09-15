@@ -27,7 +27,7 @@ const handleSelect = (sector) => {
 };
 
 const handleDeselect = (sector) => {
-  let newSectors = selectedSectors.value.filter(s => s !== sector);
+  let newSectors = selectedSectors.value.filter((s) => s !== sector);
   if (newSectors.length === 0) newSectors = [...sectors.value];
   if (sectors.value.length === selectedSectors.value.length) {
     newSectors = [sector];

@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-import { loadStoredFigmassets } from "figmasset";
+import { loadStoredFigmassets } from 'figmasset';
 import mapboxgl from 'mapbox-gl';
 
 import {
@@ -12,7 +12,7 @@ import {
   MAPBOX_ACCESS_TOKEN,
   MAPBOX_STYLE,
   MAXIMUM_EXTENT,
-} from "@/constants";
+} from '@/constants';
 
 const map = shallowRef(null);
 const mapReady = ref(false);
@@ -32,14 +32,9 @@ const popupStore = usePopupStore();
 const { locationsGeoJson } = storeToRefs(dataStore);
 const { highlightedFeatures, hoveredFeature } = storeToRefs(mapStore);
 const { sectors: selectedSectors } = storeToRefs(filtersStore);
-const {
-  center: storeCenter,
-  zoom: storeZoom,
-} = storeToRefs(mapStore);
-const {
-  unselectedLayers,
-  selectedLayerObjects: selectedLayers
-} = storeToRefs(layerPickerStore);
+const { center: storeCenter, zoom: storeZoom } = storeToRefs(mapStore);
+const { unselectedLayers, selectedLayerObjects: selectedLayers } =
+  storeToRefs(layerPickerStore);
 const { selectedFeatures } = storeToRefs(popupStore);
 
 onMounted(() => {
@@ -59,7 +54,7 @@ const initializeMap = () => {
 
   popup.value = new mapboxgl.Popup({
     closeButton: false,
-    closeOnClick: false
+    closeOnClick: false,
   });
 
   map.value.on('load', mapLoaded);
@@ -73,14 +68,9 @@ const initializeMap = () => {
 const sectorFilter = computed(() => {
   // Since the Sector property is an array, loop over selected sectors to
   // make a series of conditions
-  return ["any",
-    ...selectedSectors.value.map(sector => (
-      [
-        "in",
-        sector,
-        ["get", "Sector"]
-      ]
-    ))
+  return [
+    'any',
+    ...selectedSectors.value.map((sector) => ['in', sector, ['get', 'Sector']]),
   ];
 });
 
@@ -92,11 +82,7 @@ const locationsLayer = computed(() => {
     layout: {
       'icon-allow-overlap': true,
       'icon-image': ['concat', 'marker_', ['get', 'sectorSlug']],
-      'icon-size': [
-        'interpolate', ['linear'], ['zoom'],
-        12, 0.5,
-        16, 1.5,
-      ]
+      'icon-size': ['interpolate', ['linear'], ['zoom'], 12, 0.5, 16, 1.5],
     },
     filter: sectorFilter.value,
   };
@@ -111,10 +97,13 @@ const locationsSource = computed(() => {
 
 const expectedImages = computed(() => {
   if (!locationsGeoJson.value) return [];
-  return Array.from(new Set(
-    locationsGeoJson.value.features
-      .map(f => `marker_${f.properties.sectorSlug}`)
-  ));
+  return Array.from(
+    new Set(
+      locationsGeoJson.value.features.map(
+        (f) => `marker_${f.properties.sectorSlug}`
+      )
+    )
+  );
 });
 
 const mapLoaded = ({ target }) => {
@@ -122,16 +111,16 @@ const mapLoaded = ({ target }) => {
   map.value = target;
   map.value.jumpTo({
     center: storeCenter.value,
-    zoom: storeZoom.value
+    zoom: storeZoom.value,
   });
 
   addLocationsSource();
 
-  loadStoredFigmassets({ map: map.value, path: "map-assets/assets@2x" });
+  loadStoredFigmassets({ map: map.value, path: 'map-assets/assets@2x' });
 
   setTimeout(() => {
-    const hasAllImages = expectedImages.value.filter(i =>
-      !map.value.hasImage(i)) === 0;
+    const hasAllImages =
+      expectedImages.value.filter((i) => !map.value.hasImage(i)) === 0;
     assetsLoaded.value = true;
   }, 200);
 };
@@ -141,8 +130,7 @@ const addLocationsSource = () => {
   const existingSource = map.value.getSource('locations-source');
   if (existingSource) {
     existingSource.setData(locationsGeoJson.value);
-  }
-  else {
+  } else {
     map.value.addSource('locations-source', locationsSource.value);
   }
 };
@@ -155,9 +143,9 @@ const addLocationsLayer = () => {
 };
 
 const handleClick = (e) => {
-  selectedFeatures.value = map.value.queryRenderedFeatures(
-    e.point, { layers: [locationsLayer.value.id] }
-  );
+  selectedFeatures.value = map.value.queryRenderedFeatures(e.point, {
+    layers: [locationsLayer.value.id],
+  });
 };
 
 const handleMouseMove = (e) => {
@@ -197,7 +185,8 @@ const moveToStorePosition = () => {
     map.value.getCenter().lat === storeCenter.value.lat &&
     map.value.getCenter().lng === storeCenter.value.lng &&
     map.value.getZoom() === storeZoom.value
-  ) return;
+  )
+    return;
   flyToInProgress.value = true;
   map.value.flyTo({
     center: storeCenter.value,
@@ -206,19 +195,19 @@ const moveToStorePosition = () => {
 };
 
 const changeLayersVisibility = (layerIds, visibility) => {
-  layerIds.forEach(layerId => {
+  layerIds.forEach((layerId) => {
     map.value.setLayoutProperty(layerId, 'visibility', visibility);
   });
 };
 
 const hideUnselectedLayers = () => {
-  unselectedLayers.value.forEach(layer => {
+  unselectedLayers.value.forEach((layer) => {
     changeLayersVisibility(layer.layerIds, 'none');
   });
 };
 
 const showSelectedLayers = () => {
-  selectedLayers.value.forEach(layer => {
+  selectedLayers.value.forEach((layer) => {
     changeLayersVisibility(layer.layerIds, 'visible');
   });
 };
@@ -242,14 +231,14 @@ watch(highlightedFeatures, (currentValue, previousValue) => {
 
   if (layer && ids) {
     iconImageExpression = [
-      "case",
-      ["in", ['get', 'ID'], ["literal", ids]],
+      'case',
+      ['in', ['get', 'ID'], ['literal', ids]],
       ['concat', 'marker_', ['get', 'sectorSlug'], '_highlight'],
       ['concat', 'marker_', ['get', 'sectorSlug']],
     ];
     symbolSortKeyExpression = [
-      "case",
-      ["in", ['get', 'ID'], ["literal", ids]],
+      'case',
+      ['in', ['get', 'ID'], ['literal', ids]],
       1,
       0,
     ];
@@ -261,8 +250,11 @@ watch(highlightedFeatures, (currentValue, previousValue) => {
 
   if (layer) {
     map.value.setLayoutProperty(layer, 'icon-image', iconImageExpression);
-    map.value.setLayoutProperty(layer, 'symbol-sort-key',
-      symbolSortKeyExpression);
+    map.value.setLayoutProperty(
+      layer,
+      'symbol-sort-key',
+      symbolSortKeyExpression
+    );
   }
 });
 </script>

@@ -29,7 +29,7 @@ const close = () => infoStore.setHidden();
 </script>
 
 <style lang="scss" scoped>
-@use "../../styles/variables.scss" as *;
+@use '../../styles/variables.scss' as *;
 
 h2 {
   padding-left: 0.5em;

@@ -1,4 +1,4 @@
-import { getTextBlocks } from "@/connectors/airtable";
+import { getTextBlocks } from '@/connectors/airtable';
 
 export const useTextBlocksStore = defineStore('textBlocks', {
   state: () => ({
@@ -13,9 +13,10 @@ export const useTextBlocksStore = defineStore('textBlocks', {
 
   getters: {
     byType(state) {
-      return type => state.textBlocks
-        .filter(({ Type }) => Type === type)
-        .map(({ Content }) => Content.trim());
+      return (type) =>
+        state.textBlocks
+          .filter(({ Type }) => Type === type)
+          .map(({ Content }) => Content.trim());
     },
   },
 });

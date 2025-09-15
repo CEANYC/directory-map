@@ -22,11 +22,11 @@ export default {
     this.logo = logo;
     this.url = CEANYC_URL;
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
-@use "../../styles/variables.scss" as *;
+@use '../../styles/variables.scss' as *;
 
 .logo-button {
   background: none;

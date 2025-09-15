@@ -10,11 +10,11 @@ import layersIcon from '../icons/layers.svg';
 const layerPickerStore = useLayerPickerStore();
 const { visible: layerPickerVisible } = storeToRefs(layerPickerStore);
 
-const toggle = () => layerPickerVisible.value = !layerPickerVisible.value;
+const toggle = () => (layerPickerVisible.value = !layerPickerVisible.value);
 </script>
 
 <style lang="scss" scoped>
-@use "../../styles/variables.scss" as *;
+@use '../../styles/variables.scss' as *;
 
 .layer-picker-button {
   background: white;

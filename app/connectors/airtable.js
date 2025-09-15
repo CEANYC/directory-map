@@ -1,28 +1,29 @@
-import Airtable from "airtable";
+import Airtable from 'airtable';
 import {
   AIRTABLE_DATABASE_ID,
   AIRTABLE_LISTINGS_TABLE,
   AIRTABLE_SECTORS_TABLE,
   AIRTABLE_TEXT_BLOCKS_TABLE,
-} from "@/constants";
+} from '@/constants';
 
 const getRecords = async (apiKey, table, progressCallback) => {
-  const base = new Airtable({apiKey}).base(AIRTABLE_DATABASE_ID);
+  const base = new Airtable({ apiKey }).base(AIRTABLE_DATABASE_ID);
 
   return new Promise((resolve, reject) => {
     let allRecords = [];
 
-    base(table).select({ maxRecords: 2500 })
+    base(table)
+      .select({ maxRecords: 2500 })
       .eachPage(
         (records, fetchNextPage) => {
-          const recordsBatch = records.map(r => r.fields);
+          const recordsBatch = records.map((r) => r.fields);
           allRecords = [...allRecords, ...recordsBatch];
           if (progressCallback) {
             progressCallback(recordsBatch);
           }
           fetchNextPage();
         },
-        err => {
+        (err) => {
           if (err) return reject(err);
           resolve(allRecords);
         }

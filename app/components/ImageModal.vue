@@ -1,5 +1,11 @@
 <template>
-  <div ref="rootRef" class="image-modal" tabindex="-1" @click.self="close" @keyup.esc="close">
+  <div
+    ref="rootRef"
+    class="image-modal"
+    tabindex="-1"
+    @click.self="close"
+    @keyup.esc="close"
+  >
     <img :src="imageUrl" />
   </div>
 </template>

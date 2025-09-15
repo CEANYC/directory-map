@@ -28,17 +28,18 @@
 <script setup>
 const layerPickerStore = useLayerPickerStore();
 
-const { availableLayers, visible, selectedLayers } = storeToRefs(layerPickerStore);
+const { availableLayers, visible, selectedLayers } =
+  storeToRefs(layerPickerStore);
 
 const canClear = computed(() => selectedLayers.value.length > 0);
 
-const clear = () => selectedLayers.value = [];
-const close = () => visible.value = false;
-const selectLayer = (e) => selectedLayers.value = [e.target.value];
+const clear = () => (selectedLayers.value = []);
+const close = () => (visible.value = false);
+const selectLayer = (e) => (selectedLayers.value = [e.target.value]);
 </script>
 
 <style lang="scss" scoped>
-@use "../../styles/variables.scss" as *;
+@use '../../styles/variables.scss' as *;
 
 .layer-picker {
   background: white;
@@ -69,7 +70,7 @@ const selectLayer = (e) => selectedLayers.value = [e.target.value];
 }
 
 .layer {
-  border-bottom: 1px solid #EDEDED;
+  border-bottom: 1px solid #ededed;
 
   &:last-of-type {
     border: none;
@@ -83,7 +84,7 @@ const selectLayer = (e) => selectedLayers.value = [e.target.value];
     padding: 1rem 0;
   }
 
-  input[type="radio"] {
+  input[type='radio'] {
     height: 1.25rem;
     width: 1.25rem;
   }
@@ -105,7 +106,7 @@ const selectLayer = (e) => selectedLayers.value = [e.target.value];
 .clear {
   appearance: none;
   border: none;
-  background: #7A7A7A;
+  background: #7a7a7a;
   border-radius: 10px;
   color: white;
   cursor: pointer;

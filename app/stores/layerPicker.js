@@ -2,7 +2,7 @@ export const useLayerPickerStore = defineStore('layerPicker', {
   state: () => ({
     availableLayers: [
       {
-        name: "City Council Districts",
+        name: 'City Council Districts',
         layerIds: [
           'districts-cc-label',
           'districts-cc-line',
@@ -10,7 +10,7 @@ export const useLayerPickerStore = defineStore('layerPicker', {
         ],
       },
       {
-        name: "Community Districts",
+        name: 'Community Districts',
         layerIds: [
           'districts-cd-label',
           'districts-cd-line',
@@ -18,7 +18,7 @@ export const useLayerPickerStore = defineStore('layerPicker', {
         ],
       },
       {
-        name: "ZIP Codes",
+        name: 'ZIP Codes',
         layerIds: [
           'districts-zip-label',
           'districts-zip-line',
@@ -31,8 +31,8 @@ export const useLayerPickerStore = defineStore('layerPicker', {
   }),
 
   getters: {
-    layerByName: state => name => {
-      return state.availableLayers.find(l => l.name === name);
+    layerByName: (state) => (name) => {
+      return state.availableLayers.find((l) => l.name === name);
     },
 
     selectedLayerObjects(state) {
@@ -46,7 +46,7 @@ export const useLayerPickerStore = defineStore('layerPicker', {
     unselectedLayerNames(state) {
       return state.availableLayers
         .map(({ name }) => name)
-        .filter(name => !state.selectedLayers.includes(name));
+        .filter((name) => !state.selectedLayers.includes(name));
     },
   },
 });

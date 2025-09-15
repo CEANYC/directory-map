@@ -1,7 +1,4 @@
-import {
-  INITIAL_CENTER,
-  INITIAL_ZOOM,
-} from "@/constants";
+import { INITIAL_CENTER, INITIAL_ZOOM } from '@/constants';
 
 function getPositionParams(center, zoom) {
   let pushParams = {};
@@ -29,7 +26,7 @@ function createMapSettings() {
     center: { ...INITIAL_CENTER },
     zoom: INITIAL_ZOOM,
   };
-};
+}
 
 export const useMapStore = defineStore('map', {
   state: () => ({
@@ -38,7 +35,7 @@ export const useMapStore = defineStore('map', {
 
     center: { ...INITIAL_CENTER },
     zoom: INITIAL_ZOOM,
-    
+
     hoveredFeature: {},
   }),
 
@@ -59,7 +56,7 @@ export const useMapStore = defineStore('map', {
       if (params.lat && params.lng) {
         center = {
           lat: +params.lat,
-          lng: +params.lng
+          lng: +params.lng,
         };
       }
       this.initialCenter = center;
@@ -86,9 +83,11 @@ export const useMapStore = defineStore('map', {
       const popupStore = usePopupStore();
       return [
         state.hoveredFeature,
-        popupStore.selectedFeatures
-          .map((f) => ({ layer: f?.layer?.id, id: f.id }))[0],
-      ].filter(v => !!v && Object.keys(v).length > 0);
+        popupStore.selectedFeatures.map((f) => ({
+          layer: f?.layer?.id,
+          id: f.id,
+        }))[0],
+      ].filter((v) => !!v && Object.keys(v).length > 0);
     },
-  }
+  },
 });
