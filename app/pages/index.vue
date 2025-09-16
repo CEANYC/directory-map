@@ -48,16 +48,6 @@ onMounted(async () => {
 const title = computed(() => {
   return textBlocksStore.byType('Title')[0];
 });
-
-// TODO
-/*
-  head() {
-    return {
-      title: this.title,
-    };
-  },
-}
-*/
 </script>
 
 <style>

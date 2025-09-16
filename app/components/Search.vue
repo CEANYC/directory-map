@@ -29,7 +29,13 @@ const { selectedFeatures } = storeToRefs(popupStore);
 
 const locations = computed(() => {
   return [...allLocations.value]
-    .filter(({ Sector }) => selectedSectors.value.includes(Sector))
+    .filter((location) => {
+      return (
+        selectedSectors.value.includes(location.Sector) &&
+        location['Display Name'] &&
+        location['Display Name'] !== ''
+      );
+    })
     .sort((a, b) => a?.['Display Name']?.localeCompare(b?.['Display Name']));
 });
 
