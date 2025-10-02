@@ -1,0 +1,42 @@
+name: fetch-listings
+permissions: write-all
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 12 * * *"
+
+jobs:
+  fetch-listings:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [24]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+          cache: 'pip'
+
+      - run: pip install -r scripts/requirements.txt
+
+      - name: print secrets
+        run: echo $GOOGLE_SERVICE_ACCOUNT_FILE >> config/google_service_account.json
+        shell: bash
+        env:
+          GOOGLE_SERVICE_ACCOUNT_FILE: ${{secrets.GOOGLE_SERVICE_ACCOUNT_FILE}}
+
+      - name: fetch from Google Sheets
+        run: python scripts/fetch-listings config/google_service_account.json $GOOGLE_SHEET_ID public/data/listings.csv
+        env:
+          GOOGLE_SHEET_ID: ${{secrets.GOOGLE_SHEET_ID}}
+
+      - uses: EndBug/add-and-commit@v9
+        add: public/data
+        message: "Update listings"
