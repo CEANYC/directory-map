@@ -38,5 +38,6 @@ jobs:
           GOOGLE_SHEET_ID: ${{secrets.GOOGLE_SHEET_ID}}
 
       - uses: EndBug/add-and-commit@v9
-        add: public/data
-        message: "Update listings"
+        with:
+          add: public/data
+          message: "Update listings"
