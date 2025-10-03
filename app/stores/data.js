@@ -1,57 +1,49 @@
-import { getLocations } from '@/connectors/airtable';
+import { getLocations } from '@/connectors/file';
 import { get as getCommunityFridges } from '@/connectors/communityFridges';
 import { get as getMeshNodes } from '@/connectors/meshNodes';
-import { fromAirtable, toGeoJson } from '@/transformers/locations';
+import { fromFile, toGeoJson } from '@/transformers/locations';
 import { fromSource as fromCommunityFridgesSource } from '@/transformers/communityFridges';
 import { fromSource as fromMeshNodes } from '@/transformers/meshNodes';
 
-export const useDataStore = defineStore('data', {
-  state: () => ({
-    locations: [],
-  }),
+export const useDataStore = defineStore('data', () => {
+  const locations = ref([]);
 
-  actions: {
-    addLocations(locations) {
-      this.locations = [...this.locations, ...locations];
-    },
+  const locationsGeoJson = computed(() => toGeoJson(locations.value));
 
-    async loadLocations(apiKey, params) {
-      const filtersStore = useFiltersStore();
-      const popupStore = usePopupStore();
+  const availableSectors = computed(() => {
+    const sectorsFlattened = locations.value
+      .map(({ Sector }) => Sector)
+      .flat(Infinity);
+    return Array.from(new Set(sectorsFlattened));
+  });
 
-      const { sectors } = storeToRefs(filtersStore);
+  const addLocations = (toAdd) => {
+    locations.value = [...locations.value, ...toAdd];
+  };
 
-      await getLocations(apiKey, (records) => {
-        this.addLocations(records.map(fromAirtable));
-      });
+  const loadLocations = async (params) => {
+    const locations = await getLocations();
+    addLocations(locations.map(fromFile));
+  };
 
-      if (!sectors.value.length) {
-        sectors.value = this.sectors;
-      }
-      popupStore.loadQueryParams(params);
-    },
+  const loadCommunityFridges = async () => {
+    const fridges = await getCommunityFridges();
+    const locations = Object.values(fridges).map(fromCommunityFridgesSource);
+    addLocations(locations);
+  };
 
-    async loadCommunityFridges() {
-      const fridges = await getCommunityFridges();
-      const locations = Object.values(fridges).map(fromCommunityFridgesSource);
-      this.addLocations(locations);
-    },
+  const loadMeshNodes = async () => {
+    const nodes = await getMeshNodes();
+    const locations = Object.values(nodes).map(fromMeshNodes);
+    addLocations(locations);
+  };
 
-    async loadMeshNodes() {
-      const nodes = await getMeshNodes();
-      const locations = Object.values(nodes).map(fromMeshNodes);
-      this.addLocations(locations);
-    },
-  },
-
-  getters: {
-    locationsGeoJson: (state) => toGeoJson(state.locations),
-
-    sectors: (state) => {
-      const sectorsFlattened = state.locations
-        .map(({ Sector }) => Sector)
-        .flat(Infinity);
-      return Array.from(new Set(sectorsFlattened));
-    },
-  },
+  return {
+    locations,
+    loadLocations,
+    loadCommunityFridges,
+    loadMeshNodes,
+    locationsGeoJson,
+    sectors: availableSectors,
+  };
 });
