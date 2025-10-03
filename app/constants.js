@@ -1,5 +1,4 @@
 export const AIRTABLE_DATABASE_ID = 'appVbmRHpF0PZbybE';
-export const AIRTABLE_LISTINGS_TABLE = 'listings';
 export const AIRTABLE_SECTORS_TABLE = 'sectors';
 export const AIRTABLE_TEXT_BLOCKS_TABLE = 'text blocks';
 

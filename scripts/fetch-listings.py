@@ -8,7 +8,7 @@ def load_file(config_path, sheet_id, output_path):
     sheet = gc.open_by_key(sheet_id)
     worksheet = sheet.get_worksheet(0)
     df = pd.DataFrame(worksheet.get_all_records())
-    df.to_csv(output_path)
+    df.to_csv(output_path, index=False)
 
 
 if __name__ == '__main__':

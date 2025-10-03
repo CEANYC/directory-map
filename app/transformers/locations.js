@@ -2,9 +2,10 @@ export const getSectorSlug = (sector) => {
   return sector.toLowerCase().replaceAll(' ', '_');
 };
 
-export const fromAirtable = (location) => {
+export const fromFile = (location) => {
   return {
     ...location,
+    ID: +location.ID,
     sectorSlug: getSectorSlug(location.Sector),
   };
 };

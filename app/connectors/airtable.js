@@ -1,7 +1,6 @@
 import Airtable from 'airtable';
 import {
   AIRTABLE_DATABASE_ID,
-  AIRTABLE_LISTINGS_TABLE,
   AIRTABLE_SECTORS_TABLE,
   AIRTABLE_TEXT_BLOCKS_TABLE,
 } from '@/constants';
@@ -29,10 +28,6 @@ const getRecords = async (apiKey, table, progressCallback) => {
         }
       );
   });
-};
-
-export const getLocations = async (apiKey, progressCallback) => {
-  return await getRecords(apiKey, AIRTABLE_LISTINGS_TABLE, progressCallback);
 };
 
 export const getSectors = async (apiKey) => {

@@ -20,10 +20,12 @@ const infoStore = useInfoStore();
 const layerPickerStore = useLayerPickerStore();
 const queryStore = useQueryStore();
 const mapStore = useMapStore();
+const popupStore = usePopupStore();
 const textBlocksStore = useTextBlocksStore();
 const { $airtableApiKey } = useNuxtApp();
 const route = useRoute();
 
+const { sectors: availableSectors } = storeToRefs(dataStore);
 const { sectors: selectedSectors } = storeToRefs(filtersStore);
 const { open: imageModalOpen } = storeToRefs(imageModalStore);
 const { visible: infoVisible } = storeToRefs(infoStore);
@@ -33,9 +35,15 @@ onMounted(async () => {
   if (import.meta.client) {
     const params = route.query;
 
-    await dataStore.loadLocations($airtableApiKey, params);
+    await dataStore.loadLocations(params);
     await dataStore.loadCommunityFridges();
     await dataStore.loadMeshNodes();
+
+    if (!selectedSectors.value.length) {
+      selectedSectors.value = availableSectors.value;
+    }
+    popupStore.loadQueryParams(params);
+
     await contentStore.loadSectors($airtableApiKey);
     await textBlocksStore.loadTextBlocks($airtableApiKey);
 
