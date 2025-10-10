@@ -11,6 +11,16 @@
           :sector="sector"
         />
         <TextBlock type="Contributors" />
+        <div class="download-section">
+          <div class="header">Download the data</div>
+          <div>
+            We're happy to provide access to the data here for your research.
+            Please cite CEANYC's Seeding Solidarity map when you use the data.
+          </div>
+          <div>
+            <DownloadButton />
+          </div>
+        </div>
         <a href="https://gocoopnyc.org/" target="_blank">
           <img class="ceanyc-logo" src="~/assets/ceanyc-logo.png" />
         </a>
@@ -85,6 +95,18 @@ h2 {
     right: 1rem;
     position: absolute;
     z-index: 1001;
+  }
+}
+
+.download-section {
+  font-size: 0.8em;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+
+  .header {
+    font-weight: bold;
   }
 }
 </style>
