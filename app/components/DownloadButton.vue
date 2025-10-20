@@ -14,9 +14,20 @@ const filename = computed(() => {
   return `CEANYC_Seeding_Solidarity_Map_${dateFormatter(new Date())}`;
 });
 
+const fields = [
+  'Sector',
+  'Display Name',
+  'Brief Description',
+  'Address',
+  'Website',
+  'lat',
+  'lon',
+];
+
 const handleDownload = () => {
-  const opts = {};
+  const opts = { fields };
   const parser = new Parser(opts);
+  console.log(locations.value[0]);
   const csv = parser.parse(locations.value);
 
   const blob = new Blob([csv], { type: 'text/csv' });
