@@ -3091,10 +3091,10 @@ fdir@^6.2.0, fdir@^6.4.4, fdir@^6.5.0:
   resolved "https://registry.yarnpkg.com/fdir/-/fdir-6.5.0.tgz#ed2ab967a331ade62f18d077dae192684d50d350"
   integrity sha512-tIbYtZbucOs0BRGqPJkshJUYdL+SDH7dVM8gjy+ERp3WAUjLEFJE+02kanyHtwjWOnwrKYBiwAmM0p4kLJAnXg==
 
-figmasset@^0.1.6:
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/figmasset/-/figmasset-0.1.6.tgz#a2954703163266ba88ed579b38a7974bd50c32ee"
-  integrity sha512-Tmgm1QiOarmXap6zsXFRYkAi4rdcUTEJzd3JCGFLtxcYlANZZ8+Sd17sk684nt9JuRUGjSSwlDmHGTmWAaAPMw==
+figmasset@^0.1.8:
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/figmasset/-/figmasset-0.1.8.tgz#c1d47f5b48ea5e566d7dd5262324e0f167009042"
+  integrity sha512-QnEGo4q+a55CQSKJVmOssTJdC3gB6IcXOvrx32s2IsmZQZ1N+Lsc8/eETqcnGDuMT8kIRJ9stNCroK4lqfdUxA==
 
 file-uri-to-path@1.0.0:
   version "1.0.0"
