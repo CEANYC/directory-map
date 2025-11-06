@@ -41,7 +41,7 @@ export default {
   padding: 0.25rem;
   position: absolute;
   z-index: 1000;
-  bottom: 1rem;
+  bottom: 1.5rem;
   right: 1rem;
   border-radius: 10px;
 

@@ -29,7 +29,7 @@ const toggle = () => (layerPickerVisible.value = !layerPickerVisible.value);
   padding: 0.25rem;
   position: absolute;
   z-index: 1000;
-  bottom: 1rem;
+  bottom: 2rem;
   left: 1rem;
   border-radius: 10px;
 
