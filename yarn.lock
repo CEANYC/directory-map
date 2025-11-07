@@ -5391,7 +5391,7 @@ tinyglobby@0.2.14:
     fdir "^6.4.4"
     picomatch "^4.0.2"
 
-tinyglobby@^0.2.14:
+tinyglobby@^0.2.14, tinyglobby@^0.2.15:
   version "0.2.15"
   resolved "https://registry.yarnpkg.com/tinyglobby/-/tinyglobby-0.2.15.tgz#e228dd1e638cea993d2fdb4fcd2d4602a79951c2"
   integrity sha512-j2Zq4NyQYG5XMST4cbs02Ak8iJUdxRM0XI5QyxXuZOzKOINmWurp3smXu3y5wDcJrptwpSjgXHzIQxR0omXljQ==
@@ -5710,17 +5710,17 @@ vite-plugin-vue-tracer@^1.0.0:
     pathe "^2.0.3"
     source-map-js "^1.2.1"
 
-"vite@^5.0.0 || ^6.0.0 || ^7.0.0-0", vite@^7.1.4:
-  version "7.1.4"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-7.1.4.tgz#354944affb55e1aff0157406b74e0d0a3232df9a"
-  integrity sha512-X5QFK4SGynAeeIt+A7ZWnApdUyHYm+pzv/8/A57LqSGcI88U6R6ipOs3uCesdc6yl7nl+zNO0t8LmqAdXcQihw==
+"vite@^5.0.0 || ^6.0.0 || ^7.0.0-0", vite@^7.1.4, vite@^7.2.1:
+  version "7.2.1"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-7.2.1.tgz#a4f81eb59733b5fb74a7b9cd455c6c1da9ef8667"
+  integrity sha512-qTl3VF7BvOupTR85Zc561sPEgxyUSNSvTQ9fit7DEMP7yPgvvIGm5Zfa1dOM+kOwWGNviK9uFM9ra77+OjK7lQ==
   dependencies:
     esbuild "^0.25.0"
     fdir "^6.5.0"
     picomatch "^4.0.3"
     postcss "^8.5.6"
     rollup "^4.43.0"
-    tinyglobby "^0.2.14"
+    tinyglobby "^0.2.15"
   optionalDependencies:
     fsevents "~2.3.3"
 
