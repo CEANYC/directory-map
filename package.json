@@ -22,7 +22,7 @@
     "figmasset": "^0.1.8",
     "mapbox-gl": "^3.14.0",
     "nuxt": "^4.1.1",
-    "pinia": "^3.0.3",
+    "pinia": "^3.0.4",
     "sass": "^1.92.1",
     "sass-loader": "^16.0.5",
     "showdown": "^2.1.0",
