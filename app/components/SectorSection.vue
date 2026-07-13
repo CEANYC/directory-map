@@ -69,7 +69,7 @@ const voices = computed(() => {
       .map(([key, value]) => {
         if (typeof value === 'string') value = value.trim();
         return [key.replace('Voices_', ''), value];
-      })
+      }),
   );
 });
 </script>

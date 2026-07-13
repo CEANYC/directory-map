@@ -100,9 +100,9 @@ const expectedImages = computed(() => {
   return Array.from(
     new Set(
       locationsGeoJson.value.features.map(
-        (f) => `marker_${f.properties.sectorSlug}`
-      )
-    )
+        (f) => `marker_${f.properties.sectorSlug}`,
+      ),
+    ),
   );
 });
 
@@ -253,7 +253,7 @@ watch(highlightedFeatures, (currentValue, previousValue) => {
     map.value.setLayoutProperty(
       layer,
       'symbol-sort-key',
-      symbolSortKeyExpression
+      symbolSortKeyExpression,
     );
   }
 });

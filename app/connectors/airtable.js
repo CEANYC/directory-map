@@ -25,7 +25,7 @@ const getRecords = async (apiKey, table, progressCallback) => {
         (err) => {
           if (err) return reject(err);
           resolve(allRecords);
-        }
+        },
       );
   });
 };

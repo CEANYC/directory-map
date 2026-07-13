@@ -4,7 +4,7 @@ permissions: write-all
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 12 * * *"
+    - cron: '0 12 * * *'
 
 jobs:
   fetch-listings:
@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: [24]
+        node: [26]
 
     steps:
       - name: Checkout
@@ -40,4 +40,4 @@ jobs:
       - uses: EndBug/add-and-commit@v9
         with:
           add: public/data
-          message: "Update listings"
+          message: 'Update listings'

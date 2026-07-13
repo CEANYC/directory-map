@@ -12,7 +12,7 @@ let allParametersPresent = true;
 
 if (!AIRTABLE_API_KEY_WRITABLE) {
   console.error(
-    'AIRTABLE_API_KEY_WRITABLE not set, writable Airtable API KEY required'
+    'AIRTABLE_API_KEY_WRITABLE not set, writable Airtable API KEY required',
   );
   allParametersPresent = false;
 }
@@ -29,7 +29,7 @@ if (!allParametersPresent) {
 
 const getBase = () => {
   return new Airtable({ apiKey: AIRTABLE_API_KEY_WRITABLE }).base(
-    constants.AIRTABLE_DATABASE_ID
+    constants.AIRTABLE_DATABASE_ID,
   );
 };
 
@@ -77,7 +77,7 @@ const updateRecords = async (records) => {
           return;
         }
         records.forEach((r) => console.log(r.get('ID')));
-      }
+      },
     );
   }
 };
