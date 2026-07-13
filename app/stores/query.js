@@ -24,7 +24,7 @@ export const useQueryStore = defineStore('query', {
       };
 
       return Object.fromEntries(
-        Object.entries(queryParams).filter(([k, v]) => v !== null)
+        Object.entries(queryParams).filter(([k, v]) => v !== null),
       );
     },
   },
