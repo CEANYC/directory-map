@@ -21,20 +21,21 @@ export const fromFile = (event) => {
   };
 };
 
-export const toGeoJson = (locations) => {
+export const toGeoJson = (events) => {
   return {
     type: 'FeatureCollection',
-    features: locations.map(toGeoJsonFeature),
+    features: events.map(toGeoJsonFeature),
   };
 };
 
-export const toGeoJsonFeature = (location) => {
+export const toGeoJsonFeature = (event) => {
+  console.log(event);
   return {
     type: 'Feature',
-    properties: { ...location },
+    properties: { ...event },
     geometry: {
       type: 'Point',
-      coordinates: [+location.Longitude, +location.Latitude],
+      coordinates: [...event.lnglat].reverse(),
     },
   };
 };

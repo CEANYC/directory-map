@@ -4,13 +4,14 @@ import { get as getMeshNodes } from '@/connectors/meshNodes';
 import { fromFile, toGeoJson } from '@/transformers/locations';
 import { fromSource as fromCommunityFridgesSource } from '@/transformers/communityFridges';
 import { fromSource as fromMeshNodes } from '@/transformers/meshNodes';
-import { fromFile as eventsFromFile } from '@/transformers/events';
+import { fromFile as eventsFromFile, toGeoJson as eventsToGeoJson } from '@/transformers/events';
 
 export const useDataStore = defineStore('data', () => {
   const locations = ref([]);
   const events = ref([]);
 
   const locationsGeoJson = computed(() => toGeoJson(locations.value));
+  const eventsGeoJson = computed(() => eventsToGeoJson(events.value));
 
   const availableSectors = computed(() => {
     const sectorsFlattened = locations.value
@@ -56,6 +57,7 @@ export const useDataStore = defineStore('data', () => {
     sectors: availableSectors,
 
     events,
+    eventsGeoJson,
     loadEvents,
   };
 });
