@@ -1,6 +1,6 @@
 <template>
-  <div class="info-button" @click="toggle">
-    <span class="button-text">About</span>
+  <div class="info-button" @click="emit('toggle')">
+    <span class="button-text">{{ label }}</span>
   </div>
 </template>
 
@@ -9,14 +9,20 @@ const infoStore = useInfoStore();
 
 const { visible: infoVisible } = storeToRefs(infoStore);
 
+const props = defineProps({
+  label: String,
+});
+
+const { label } = toRefs(props);
+
+const emit = defineEmits(['toggle']);
+
 const toggle = () => {
   infoVisible.value = !infoVisible.value;
 };
 </script>
 
 <style lang="scss" scoped>
-@use '../../styles/variables.scss' as *;
-
 .info-button {
   align-items: center;
   background: white;
@@ -26,19 +32,10 @@ const toggle = () => {
   justify-content: center;
   padding: 0.5rem;
   text-align: center;
-  position: absolute;
-  z-index: 1000;
-  top: 1rem;
-  right: 1rem;
   border-radius: 10px;
 
   &:hover {
     background: #eee;
-  }
-
-  @media (max-width: $mobile-maximum) {
-    top: unset;
-    bottom: 1rem;
   }
 }
 

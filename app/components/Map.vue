@@ -23,15 +23,17 @@ const assetsLoaded = ref(false);
 const center = ref(INITIAL_CENTER);
 const zoom = ref(INITIAL_ZOOM);
 
+const eventsStore = useEventsStore();
 const dataStore = useDataStore();
 const filtersStore = useFiltersStore();
 const mapStore = useMapStore();
 const layerPickerStore = useLayerPickerStore();
 const popupStore = usePopupStore();
 
-const { locationsGeoJson } = storeToRefs(dataStore);
-const { highlightedFeatures, hoveredFeature } = storeToRefs(mapStore);
+const { eventsGeoJson, locationsGeoJson } = storeToRefs(dataStore);
+const { highlightedFeatures, hoveredFeature, currentBbox } = storeToRefs(mapStore);
 const { sectors: selectedSectors } = storeToRefs(filtersStore);
+const { visible: eventsVisible } = storeToRefs(eventsStore);
 const { center: storeCenter, zoom: storeZoom } = storeToRefs(mapStore);
 const { unselectedLayers, selectedLayerObjects: selectedLayers } =
   storeToRefs(layerPickerStore);
@@ -95,6 +97,27 @@ const locationsSource = computed(() => {
   };
 });
 
+const eventsLayer = computed(() => {
+  return {
+    id: 'events',
+    source: 'events-source',
+    type: 'circle',
+    layout: {
+    },
+    paint: {
+      'circle-color': '#1fbfdb',
+      'circle-radius': 10,
+    }
+  };
+});
+
+const eventsSource = computed(() => {
+  return {
+    type: 'geojson',
+    data: eventsGeoJson.value,
+  };
+});
+
 const expectedImages = computed(() => {
   if (!locationsGeoJson.value) return [];
   return Array.from(
@@ -139,7 +162,24 @@ const addLocationsLayer = () => {
   if (!assetsLoaded.value) return;
   if (!map.value.getSource('locations-source')) return;
   if (map.value.getLayer(locationsLayer.value.id)) return;
-  map.value.addLayer(locationsLayer.value);
+  map.value.addLayer(locationsLayer.value, eventsLayer.value.id);
+};
+
+const addEventsSource = () => {
+  if (!map.value || !mapReady.value) return;
+  const existingSource = map.value.getSource('events-source');
+  if (existingSource) {
+    existingSource.setData(eventsGeoJson.value);
+  } else {
+    map.value.addSource('events-source', eventsSource.value);
+  }
+};
+
+const addEventsLayer = () => {
+  // if (!assetsLoaded.value) return;
+  if (!map.value.getSource('events-source')) return;
+  if (map.value.getLayer(eventsLayer.value.id)) return;
+  map.value.addLayer(eventsLayer.value);
 };
 
 const handleClick = (e) => {
@@ -177,6 +217,7 @@ const handleMove = () => {
 
 const handleMoveEnd = () => {
   flyToInProgress.value = false;
+  currentBbox.value = map.value.getBounds().toArray();
 };
 
 const moveToStorePosition = () => {
@@ -214,6 +255,8 @@ const showSelectedLayers = () => {
 
 watch([map, mapReady, locationsSource], addLocationsSource);
 watch([assetsLoaded, map, mapReady, locationsSource], addLocationsLayer);
+watch([map, mapReady, eventsSource], addEventsSource);
+watch([assetsLoaded, map, mapReady, eventsSource], addEventsLayer);
 watch(unselectedLayers, hideUnselectedLayers);
 watch(selectedLayers, showSelectedLayers);
 watch([storeCenter, storeZoom], moveToStorePosition);
@@ -221,6 +264,10 @@ watch([storeCenter, storeZoom], moveToStorePosition);
 watch(sectorFilter, () => {
   if (!map.value || !mapReady.value) return;
   map.value.setFilter(locationsLayer.value.id, sectorFilter.value);
+});
+
+watch(eventsVisible, (visible) => {
+  map.value.setPaintProperty(locationsLayer.value.id, 'icon-opacity', visible ? 0.25 : 1);
 });
 
 watch(highlightedFeatures, (currentValue, previousValue) => {

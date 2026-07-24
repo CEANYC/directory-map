@@ -7,3 +7,7 @@ const loadCsv = async (file) => {
 export const getLocations = async () => {
   return loadCsv('listings.csv');
 };
+
+export const getEvents = async () => {
+  return loadCsv('events.csv');
+};

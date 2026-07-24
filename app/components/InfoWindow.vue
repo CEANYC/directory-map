@@ -1,32 +1,27 @@
 <template>
-  <div class="info-window">
-    <div class="close" @click="close">⨉</div>
-    <div class="content">
-      <div class="content-scroll">
-        <h2>About</h2>
-        <TextBlock type="About" />
-        <SectorSection
-          v-for="sector in sectors"
-          :key="sector.Name"
-          :sector="sector"
-        />
-        <TextBlock type="Contributors" />
-        <div class="download-section">
-          <div class="header">Download the data</div>
-          <div>
-            We're happy to provide access to the data here for your research.
-            Please cite CEANYC's Seeding Solidarity map when you use the data.
-          </div>
-          <div>
-            <DownloadButton />
-          </div>
-        </div>
-        <a href="https://gocoopnyc.org/" target="_blank">
-          <img class="ceanyc-logo" src="~/assets/ceanyc-logo.png" />
-        </a>
+  <Overlay @close="close">
+    <h2>About</h2>
+    <TextBlock type="About" />
+    <SectorSection
+      v-for="sector in sectors"
+      :key="sector.Name"
+      :sector="sector"
+    />
+    <TextBlock type="Contributors" />
+    <div class="download-section">
+      <div class="header">Download the data</div>
+      <div>
+        We're happy to provide access to the data here for your research.
+        Please cite CEANYC's Seeding Solidarity map when you use the data.
+      </div>
+      <div>
+        <DownloadButton />
       </div>
     </div>
-  </div>
+    <a href="https://gocoopnyc.org/" target="_blank">
+      <img class="ceanyc-logo" src="~/assets/ceanyc-logo.png" />
+    </a>
+  </Overlay>
 </template>
 
 <script setup>
@@ -39,63 +34,13 @@ const close = () => infoStore.setHidden();
 </script>
 
 <style lang="scss" scoped>
-@use '../../styles/variables.scss' as *;
-
 h2 {
   padding-left: 0.5em;
   margin-bottom: 0;
 }
 
-.info-window {
-  background: white;
-  width: 50%;
-  position: absolute;
-  z-index: 1001;
-  top: 1rem;
-  right: 1rem;
-  bottom: 1rem;
-  border-radius: 10px;
-
-  @media (max-width: $mobile-maximum) {
-    top: 0.5rem;
-    right: 0.5rem;
-    bottom: 0.5rem;
-    left: 0.5rem;
-    width: unset;
-  }
-}
-
-.content {
-  height: 100%;
-  padding: 2em;
-
-  @media (max-width: $mobile-maximum) {
-    padding: 0.5em;
-  }
-}
-
-.content-scroll {
-  height: 100%;
-  overflow-y: auto;
-}
-
 .ceanyc-logo {
   max-width: 250px;
-}
-
-.close {
-  cursor: pointer;
-  float: right;
-  font-size: 1.5rem;
-  margin-right: 0.25em;
-
-  @media (max-width: $mobile-maximum) {
-    font-size: 3rem;
-    background: white;
-    right: 1rem;
-    position: absolute;
-    z-index: 1001;
-  }
 }
 
 .download-section {

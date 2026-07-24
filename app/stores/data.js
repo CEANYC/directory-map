@@ -1,14 +1,17 @@
-import { getLocations } from '@/connectors/file';
+import { getLocations, getEvents } from '@/connectors/file';
 import { get as getCommunityFridges } from '@/connectors/communityFridges';
 import { get as getMeshNodes } from '@/connectors/meshNodes';
 import { fromFile, toGeoJson } from '@/transformers/locations';
 import { fromSource as fromCommunityFridgesSource } from '@/transformers/communityFridges';
 import { fromSource as fromMeshNodes } from '@/transformers/meshNodes';
+import { fromFile as eventsFromFile, toGeoJson as eventsToGeoJson } from '@/transformers/events';
 
 export const useDataStore = defineStore('data', () => {
   const locations = ref([]);
+  const events = ref([]);
 
   const locationsGeoJson = computed(() => toGeoJson(locations.value));
+  const eventsGeoJson = computed(() => eventsToGeoJson(events.value));
 
   const availableSectors = computed(() => {
     const sectorsFlattened = locations.value
@@ -24,6 +27,13 @@ export const useDataStore = defineStore('data', () => {
   const loadLocations = async (params) => {
     const locations = await getLocations();
     addLocations(locations.map(fromFile));
+  };
+
+  const loadEvents = async (params) => {
+    const rawEvents = await getEvents();
+    events.value = rawEvents.map(eventsFromFile);
+    console.log(events.value);
+    // addLocations(locations.map(fromFile));
   };
 
   const loadCommunityFridges = async () => {
@@ -45,5 +55,9 @@ export const useDataStore = defineStore('data', () => {
     loadMeshNodes,
     locationsGeoJson,
     sectors: availableSectors,
+
+    events,
+    eventsGeoJson,
+    loadEvents,
   };
 });

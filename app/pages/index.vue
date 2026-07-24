@@ -2,10 +2,14 @@
   <main>
     <Map />
     <Sidebar />
-    <InfoButton />
+    <div class="info-buttons">
+      <InfoButton label="About" @toggle="infoVisible = !infoVisible" />
+      <InfoButton label="Events" @toggle="eventsVisible = !eventsVisible" />
+    </div>
     <LogoButton />
     <LayerPickerButton />
     <InfoWindow v-if="infoVisible" />
+    <EventsWindow v-if="eventsVisible" />
     <ImageModal v-if="imageModalOpen" />
     <LayerPicker v-if="layerPickerVisible" />
   </main>
@@ -17,6 +21,7 @@ const dataStore = useDataStore();
 const filtersStore = useFiltersStore();
 const imageModalStore = useImageModalStore();
 const infoStore = useInfoStore();
+const eventsStore = useEventsStore();
 const layerPickerStore = useLayerPickerStore();
 const queryStore = useQueryStore();
 const mapStore = useMapStore();
@@ -30,6 +35,7 @@ const { sectors: selectedSectors } = storeToRefs(filtersStore);
 const { open: imageModalOpen } = storeToRefs(imageModalStore);
 const { visible: infoVisible } = storeToRefs(infoStore);
 const { visible: layerPickerVisible } = storeToRefs(layerPickerStore);
+const { visible: eventsVisible } = storeToRefs(eventsStore);
 
 onMounted(async () => {
   if (import.meta.client) {
@@ -38,6 +44,7 @@ onMounted(async () => {
     await dataStore.loadLocations(params);
     await dataStore.loadCommunityFridges();
     await dataStore.loadMeshNodes();
+    await dataStore.loadEvents();
 
     if (!selectedSectors.value.length) {
       selectedSectors.value = availableSectors.value;
@@ -59,6 +66,8 @@ const title = computed(() => {
 </script>
 
 <style>
+@use '../../styles/variables.scss' as *;
+
 html {
   box-sizing: border-box;
 }
@@ -78,5 +87,20 @@ main {
   display: flex;
   height: 100vh;
   width: 100vw;
+}
+
+.info-buttons {
+  position: absolute;
+  z-index: 1000;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+
+  @media (max-width: $mobile-maximum) {
+    top: unset;
+    bottom: 1rem;
+  }
 }
 </style>
