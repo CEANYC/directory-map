@@ -37,6 +37,7 @@ export const useMapStore = defineStore('map', {
     zoom: INITIAL_ZOOM,
 
     hoveredFeature: {},
+    currentBbox: null,
   }),
 
   actions: {

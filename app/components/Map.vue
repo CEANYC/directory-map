@@ -23,6 +23,7 @@ const assetsLoaded = ref(false);
 const center = ref(INITIAL_CENTER);
 const zoom = ref(INITIAL_ZOOM);
 
+const eventsStore = useEventsStore();
 const dataStore = useDataStore();
 const filtersStore = useFiltersStore();
 const mapStore = useMapStore();
@@ -30,8 +31,9 @@ const layerPickerStore = useLayerPickerStore();
 const popupStore = usePopupStore();
 
 const { eventsGeoJson, locationsGeoJson } = storeToRefs(dataStore);
-const { highlightedFeatures, hoveredFeature } = storeToRefs(mapStore);
+const { highlightedFeatures, hoveredFeature, currentBbox } = storeToRefs(mapStore);
 const { sectors: selectedSectors } = storeToRefs(filtersStore);
+const { visible: eventsVisible } = storeToRefs(eventsStore);
 const { center: storeCenter, zoom: storeZoom } = storeToRefs(mapStore);
 const { unselectedLayers, selectedLayerObjects: selectedLayers } =
   storeToRefs(layerPickerStore);
@@ -103,7 +105,7 @@ const eventsLayer = computed(() => {
     layout: {
     },
     paint: {
-      'circle-color': '#db0fd8',
+      'circle-color': '#1fbfdb',
       'circle-radius': 10,
     }
   };
@@ -215,6 +217,7 @@ const handleMove = () => {
 
 const handleMoveEnd = () => {
   flyToInProgress.value = false;
+  currentBbox.value = map.value.getBounds().toArray();
 };
 
 const moveToStorePosition = () => {
@@ -261,6 +264,10 @@ watch([storeCenter, storeZoom], moveToStorePosition);
 watch(sectorFilter, () => {
   if (!map.value || !mapReady.value) return;
   map.value.setFilter(locationsLayer.value.id, sectorFilter.value);
+});
+
+watch(eventsVisible, (visible) => {
+  map.value.setPaintProperty(locationsLayer.value.id, 'icon-opacity', visible ? 0.25 : 1);
 });
 
 watch(highlightedFeatures, (currentValue, previousValue) => {

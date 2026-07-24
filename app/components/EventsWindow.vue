@@ -3,18 +3,36 @@
     <h2>Events</h2>
     <div class="inner">
       <div class="filters">
-        Filters (TODO)
-        TODO update form
-        <ul>
-          <li>type</li>
-          <li>dates</li>
-          <li>free</li>
-          <li>show on map</li>
-          <li>filter by viewed location</li>
-        </ul>
+        <div class="filters-column">
+          <div class="category-picker">
+            Category
+            <select v-model="filterCategory">
+              <option value="">Pick a category</option>
+              <option v-for="category in categories" :value="category"
+                      :key="category">
+                {{ category }}
+              </option>
+            </select>
+          </div>
+          <div class="date-picker">
+            Date
+            <div class="date-picker date-picker-start">
+              <input type="date" v-model="filterDateStart" />
+            </div>
+            -
+            <div class="date-picker date-picker-end">
+              <input type="date" v-model="filterDateEnd" />
+            </div>
+          </div>
+          <div class="map-visible-picker">
+            <label>Only visible on map
+              <input type="checkbox" v-model="filterMapVisible" />
+            </label>
+          </div>
+        </div>
       </div>
       <ol class="events-list">
-        <li v-for="event in events" class="events-item">
+        <li v-for="event in filteredEvents" class="events-item">
           <h3>{{ event.title }}</h3>
           <div class="row">
             <div class="col-left">
@@ -48,7 +66,7 @@
                 <img :src="`data/events/${event.downloaded}`" />
               </div>
               <div class="more-links" v-if="event.link1 || event.link2">
-                Learn more:
+                <div class="field-label">Learn more:</div>
                 <span v-if="event.link1">
                   <a :href="event.link1">{{ shortenLink(event.link1) }}</a>
                   <span v-if="event.link2"> | </span>
@@ -56,6 +74,11 @@
                 <span v-if="event.link2">
                   <a :href="event.link2">{{ shortenLink(event.link2) }}</a>
                 </span>
+              </div>
+              <div class="categories">
+                <ul>
+                  <li v-for="category in event.categories" :key="category">{{ category }}</li>
+                </ul>
               </div>
             </div>
           </div>
@@ -71,13 +94,27 @@ import * as d3 from 'd3';
 
 const dataStore = useDataStore();
 const eventsStore = useEventsStore();
+const mapStore = useMapStore();
 
 const close = () => eventsStore.setHidden();
 
 const { events } = storeToRefs(dataStore);
+const { currentBbox } = storeToRefs(mapStore);
+const {
+  filterCategory,
+  filterDateStart,
+  filterDateEnd,
+  filterMapVisible,
+} = storeToRefs(eventsStore);
+
+const categories = computed(() => {
+  return Array.from(new Set(
+    events.value.flatMap(e => e.categories)
+  )).filter(v => v !== '').sort();
+});
 
 const getTime = (timeString) => {
-  const date = d3.timeParse('%I:%M %p')(timeString);
+  const date = d3.timeParse('%I:%M:%S %p')(timeString);
   let result = d3.timeFormat('%I%p')(date).toLowerCase();
   if (result.startsWith('0')) result = result.slice(1);
   return result;
@@ -96,11 +133,45 @@ const markdownConverter = new showdown.Converter({ simpleLineBreaks: true });
 const shortenLink = (link) => {
   return link.split('://')[1].split('/')[0].replace('www.', '');
 };
+
+const filteredEvents = computed(() => {
+  let filtered = [...events.value];
+
+  if (filterCategory.value) {
+    filtered = filtered.filter(e =>
+      e.categories.includes(filterCategory.value));
+  }
+
+  if (filterDateStart.value) {
+    console.log(filterDateStart.value);
+    filtered = filtered.filter(e => +e.startDate >= +(new
+      Date(filterDateStart.value)));
+  }
+
+  if (filterDateEnd.value) {
+    filtered = filtered.filter(e => +e.startDate <= +(new
+      Date(filterDateEnd.value)));
+  }
+
+  if (filterMapVisible.value) {
+    filtered = filtered.filter(e => {
+      const [lat, lng] = e.lnglat;
+      console.log(lng, lat, currentBbox.value);
+      return (
+        lng >= currentBbox.value[0][0] &&
+        lng <= currentBbox.value[1][0] &&
+        lat >= currentBbox.value[0][1] &&
+        lat <= currentBbox.value[1][1]
+      );
+    });
+  }
+
+  return filtered;
+});
 </script>
 
 <style lang="scss" scoped>
 h2 {
-  padding-left: 0.5em;
   margin-bottom: 0;
 }
 
@@ -111,6 +182,15 @@ h2 {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+}
+
+.events-item {
+  padding-bottom: 2rem;
+  border-bottom: 1px solid black;
+}
+
+.events-item:last-of-type {
+  border-bottom: none;
 }
 
 h3 {
@@ -129,6 +209,14 @@ h3 {
   display: flex;
   flex-direction: row;
   gap: 1rem;
+}
+
+.filters-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  font-size: 0.8rem;
 }
 
 .col-left {
@@ -166,5 +254,35 @@ a {
 
 .image img {
   max-width: 90%;
+}
+
+.description :global(p:first-of-type) {
+  margin-top: 0;
+}
+
+.date-picker {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.more-links {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.categories ul {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  gap: 1rem;
+}
+
+.categories li {
+  background: #777;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.7rem;
 }
 </style>
